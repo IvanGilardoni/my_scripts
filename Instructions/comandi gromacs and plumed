@@ -1,0 +1,44 @@
+USEFUL COMMANDS: GROMACS & PLUMED
+
+SEE IF THERE IS GROMACS:
+%%bash
+gmx_mpi -h               
+
+LOAD GROMACS:
+%%bash
+module load GROMACS/2020.3_bar_plum
+
+Sequence=’adenosine’
+
+%%bash -s $Sequence
+gmx_mpi pdb2gmx -f $1.pdb -o $1.gro<<EOF
+1
+6
+EOF
+
+%%bash -s $Sequence
+gmx_mpi editconf -f $1.gro -o $1_newbox.gro -c -d 1.5 -bt dodecahedron
+mv topol.top $1.top
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+REFERENCES
+
+Gromacs tutorial: http://www.mdtutorials.com/gmx/
+To generate pdb structures: http://web.x3dna.org/index.php/fibermodel
+
+
+
+
+
+
+ssh cezanne
+
+export PATH="$(python -c 'import site; print(site.USER_BASE + "/bin")'):$PATH"
+export PYTHONPATH="$(python -c 'import site; print(site.USER_SITE)'):$PYTHONPATH"
+
+ssh -N -f -L localhost:8888:localhost:36411 igilardo@cezanne.phys.sissa.it
+
+

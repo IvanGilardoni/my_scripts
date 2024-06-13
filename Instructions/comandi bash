@@ -1,0 +1,333 @@
+USEFUL COMMANDS: BASH
+
+
+HOW TO GO ON THE WORK STATION:
+ssh cezanne
+bussilab jrun
+
+OPEN A NEW TERMINAL:
+bussilab jremote igilardo@cezanne.phys.sissa.it --python-exec "python3"
+AND SELECT THE CORRECT N. (SEE ON THE OTHER DIRECTORY)
+
+----------------------------------------------------------------------------------------
+
+HOW TO INSTALL LIBRARIES (LIKE PANDAS...) - pip or pip3
+pip install pandas
+
+-----------------------------------------------------------------------------------------
+
+HOW TO DELETE THE PREVIOUS JUPYTER NOTEBOOK:
+jupyter notebook stop [here write n. j notebook]
+
+---------------------------------------------------------------------------------------------------------
+
+HOW TO DELETE ALL THE PREVIOUS JUPYTER NOTEBOOKS:
+
+jupyter notebook list | {
+  while IFS= read -r line
+  do
+    port=`echo "$line" | grep -o -P '(?<=localhost:).*(?=/ :)'`
+    echo "killing jn in port $port"
+    if [ -z "$port" ]
+    then
+      netstat -tulpn | grep "$port" | grep -o -P '(?<=LISTEN      ).*(?=/py)' | xargs kill -15
+    fi
+  done
+}
+
+
+
+GROMACS & PLUMED
+
+SEE IF THERE IS GROMACS:
+%%bash
+gmx_mpi -h               
+
+LOAD GROMACS:
+%%bash
+module load GROMACS/2020.3_bar_plum
+
+Sequence=’adenosine’
+
+%%bash -s $Sequence
+gmx_mpi pdb2gmx -f $1.pdb -o $1.gro<<EOF
+1
+6
+EOF
+
+%%bash -s $Sequence
+gmx_mpi editconf -f $1.gro -o $1_newbox.gro -c -d 1.5 -bt dodecahedron
+mv topol.top $1.top
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+REFERENCES
+
+Gromacs tutorial: http://www.mdtutorials.com/gmx/
+To generate pdb structures: http://web.x3dna.org/index.php/fibermodel
+
+
+
+
+
+
+ssh cezanne
+
+export PATH="$(python -c 'import site; print(site.USER_BASE + "/bin")'):$PATH"
+export PYTHONPATH="$(python -c 'import site; print(site.USER_SITE)'):$PYTHONPATH"
+
+ssh -N -f -L localhost:8888:localhost:36411 igilardo@cezanne.phys.sissa.it
+
+
+
+
+
+----------------------------------------------------------------------------------------
+
+IN BASHRC HAI GLI ALIAS (SCORCIATOIE)
+
+.bashrc
+
+vi ~/.bashrc
+
+
+----------------------------------------------------------------------------------------
+
+PER COPIARE FILE DA WORKSTATION CEZANNE IN UNA CARTELLA DEL MIO PC: vai nella cartella con il terminale e scrivi
+
+scp igilardo@cezanne:/u/i/igilardo/Nucleosides/traj_comp.xtc .
+-r PER COPIARE CARTELLE
+
+se il file è traj_comp.xtc ed è nella cartella Nucleosides
+
+-----------------------------------------------------------------------------------------
+
+
+with this command you can close screens:
+screen -XS 31458 quit
+where you replace the number with the id you see when doing:
+screen -ls
+
+----------------------------------------------------------------------------------------
+
+screen??
+
+## to copy A_autopsf.pdb in the directory on cezanne (be on the same directory on your laptop)
+scp A_autopsf.pdb igilardo@cezanne.phys.sissa.it /u/i/igilardo/Nucleosides
+
+
+### search in file
+grep -o '^def [^(]*' MDRefine/Functions.py | grep -v __init | sed 's/def //' | awk '{a=a $0 ", "}END{print a}'
+
+
+
+
+
+
+COMANDI DA TERMINALE
+ls                       per vedere cosa c'è nella cartella
+cd directory_name        per entrare nella cartella "directory_name"
+
+
+
+python                      per lanciare python
+ctrl D                      per chiudere python
+python example.py           to run a program written in python, which is in the same directory where you are
+
+gnuplot:
+plot "energies.dat" using 2:5 with linespoints ls 1
+stats "filename" using 2 name "A"
+plot "filename" t "data", A_mean t "mean value"
+
+BASH COURSE
+LECTURE 1
+
+...
+
+
+
+cd
+ls
+cat
+
+wc ## word count
+wc -l ## count only the n. of lines
+wc -l NENE*.txt ## to see the n. of lines of all txt files beginning with NENE
+wc -l NENE* ## to see the n. of lines of all files beginning with NENE
+wc -l NENE*.txt > lines.txt ## I save this output in a file lines.txt
+cat lines.txt ## to see the output
+
+sort ## to sort numerically or alphabetically
+sort -n lines.txt ## to be sure to sort numerically the file: the first element is smaller
+sort -n lines.txt > sorted.txt
+head -n 5 sorted.txt ## if I want a different n. of head lines (by default 10)
+tail -n 5 sorted.txt ## to see the last in sorted.txt, i.e. the biggest ones
+
+##to fit the output of a command to the input of another command (because memory is slow)
+wc -l NENE0* | sort -n | head -n 5 %% things can be simultaneously (but not with sort, obviously: now head has to wait)
+
+## how can I exclude a file from our analysis?
+wc -l NENE*[AB].txt ## to use only files with A or B in the file name
+wc -l *{A,B}* ## first all the files with A, then B
+wc -l *[AC BD]*
+wc -l NENE*!(Z)* ## to exclude Z
+cat *[AB]* | sort -n | head -n 4 ## how to find the min (or the max)
+cat *[AB]* | sort -nr | head -n 4 ## (or | sort -n | tail -n 4) how to find the max, but not able to understand what means e-05
+cat *[AB]* | sort -g | head -n 4 ## to understand e-05 but about commas?
+$export LC_ALL="en_US.utf8" ## English american convention: dots instead of commas
+## if you open a new terminal, this modification is not permanent
+pipe ## to parallelize more commands, like min and max at the sme line
+
+find /tmp/ -name 'animal-counts' 
+cat animals.txt | cut -d , -f 2 ## command cut to extract only one column -f 2
+cat animals.txt | cut -d , -f 2 | uniq ## to avoid duplications: unique
+## but uniq compares only two adjacent lines: you have to sort firstly
+cat animals.txt | cut -d , -f 2 | sort | uniq -c ## option -c to count the numbers of times appearing
+
+
+LECTURE TWO
+
+## which animals are present without repetitions? firstly sort, then delete duplicates
+$ cut -d ',' -f '2' animals.txt | uniq ## does not work
+$ cut -d ',' -f '2' animals.txt | sort | uniq
+$ cut -d ',' -f '2' animals.txt | sort -u
+
+## find folder writing and cd there
+$ find / -name writing -type d ## / is root: find in root, i.e. everywhere
+## but I want to filter out "permission denied", reserved to the superuser su
+## a program can write on two channels: two windows, standard output and standard error;
+## permission denied are on standard error, so I decide to separate them from standard output
+find / -name writing -type d 2> /dev/null
+## standard output 1 "d 1>", standard error 2 "d 2>", /dev/null is like a black hole, going there you disappear
+find / -name writing -type d -maxdepth 4 2> /dev/null
+
+## text processing: tr, grep, sed, awk
+tr ## it transforms one set into another
+tr [option] set1 [set2] <file
+tr A-Z a-z <file ## all upper case letters into lower case
+tr -d '\r' <file ## carriage return: newline \n, \r is carriage return (-d means delete)
+## <file means not read but redirect the contact of file to standard input, without opening the file. Or "cat file | tr" (cat concatenate file to standard input)
+tr -cs A-Za-z '\n' <file ## -cs are 2 options, A-Za-z the first set, '\n\' the second set ## end up every word per line: space is not present in set A-Za-z, but also points, so the option s means squeeze (multiple repetitions)
+
+## interested in finding a pattern in files: grep, it works both for files and standard inputs
+grep pattern file1 file2
+grep -c pattern file1 file2 ## just count
+## case insensitive search: first all upper cases letters (or lower case)
+grep The haiku.txt ## it prints all the lines containing "The"
+grep -w The haiku.txt ## only lines with the word "The"
+grep -E 'pattern1|pattern2' file ## -E for expressions if you have more than one patterns
+
+sed ## e.g. to substitute a string with another
+sed 's/day/night/' old > new ## s/ for substitute, / is repeated 3 times, if you want to use / in the string you are managing you can use | for the command 's|day|night---/|' substitute day with night---/
+sed 's/s/----SS----/' haiku.txt ## replace just the first occurrence per line, to replace all add g i.e. globally
+sed 's/s/----SS---/g' haiku.txt
+## or if not the first but the second occurrence
+sed 's/s/t/2' haiku.txt
+## sed supports regular expressions
+sed 's/[aA-zZ]*day/--- & ---/g' haiku.txt ## finishing with day
+## head was invented later than sed, so sed was used to print first lines
+cat haiku.txt | sed '3q'
+sed '1 d' haiku.txt ## remove line n. 1
+sed '/^$/d' haiku.txt ## delete lines that begin with new line, i.e. delete empty lines
+
+awk
+if (cond) then {action} ## default value of conditions is true
+## if you write only a condition without action, the default action is print: the word line
+## awk interpretes a line by splitting it basing on spaces ($1, $2..., the entire line is $0)
+awk 'condition1 {action1} condition2 {action2}' file
+awk 'rand() < 0.01' file ## rand random n. between 0,1: 'rand() < 0.01' is a condition
+awk 'BEGIN {...;getline} END{....}' file
+awk '!x[$0]++' file 
+## in awk, variables are initialized to zero
+## you want to store data (variables), with a uniquely defined key (ex. matricola n.); the data that you store, are stored in an array, hash function gives you an index (in Python dictionaries are thinked to be unordered, they implement hash table, which is unordered)
+## ++ means increment by 1: ++x or x++, they both means add 1 but the pre-increment ++x first add then store, post-increment x++ first store then add by 1; here ++ is at the end, so it is a post-increment
+## ! the negation; $0 returns 0, meaning false
+## they answer the question: there were any errors? yes 1, no 0 so 0 means falls (return 0)
+## so this is the other way to remove duplicates without blocking
+cat animals.txt | tr ',' ' ' | awk '|x[$2]++ {print $2}'
+cat animals.txt | cut -d , -f 2| awk '!x[$0]++'
+awk 'BEGIN{FS=","} !x[$2]++ { print $2}' animals.txt
+## we were able to count as well the n. of repetitions:
+cat animals.txt | cut -d , -f 2|sort | uniq -c
+## how to reproduce the same output with awk? count!
+awk 'BEGIN{FS=","} {++x[$2]} END{for (k in x){print x[k],  k}' animals.txt ## here I'm counting, then I have to print at the end, after reading all the file
+awk 'BEGIN{FS=","; OFS="---"} {$1=$1; print$0}' animals.txt} ## $1=$1 to trigger the recomputation of the line
+## min and max
+## awk script: text file with one condition per line
+emacs count_animals.awk
+
+BEGIN{FS=","} ## field separator = ","
+
+{++x[$2]}
+
+END{
+	for (k in x){
+		print x[k],k
+	}
+
+awk -f file.awk file
+
+## count the lines of all .txt in data-shell
+
+wc -l notes .txt numbers.txt
+find . -name '*txt' | wc -l ## this is wrong, I need to find another way to pass that list to work out
+wc -l $(find . -name '*txt') ## $(...) take the output of: first run name.txt, take the output and paste it on the command line (it is like I have written all the name of the files)
+
+
+
+
+EXERCISE 1: find which files .txt contain "Bennet" - 2 alternative ways
+find . -type f -print | xargs grep "Bennet"
+egrep -ir --include=*.txt "Bennet" .
+find . -name '*txt' -exec grep -l 'Bennet' {} \;
+
+
+EXERCISE 2: compute the mean of the entries of file NENE02043A.txt (hint: use awk)
+awk '{x+=$1} END{print x/NR}' NENE02043A.txt
+
+multiple files at the same time:
+awk 'FNR==1{x=$1;getline} {x+=$1} ENDFILE{print FILENAME, x/FNR}' NENE*[AB].txt
+awk 'FNR==1{x=$1;M=x;m=x;getline} {x+=$1; M=($1>M ? $1 : M); m=($1<m? $1:m)} ENDFILE{print FILENAME, x/FNR, M, m}' NENE*[AB].txt ## without getline the first line is processed twice, otherwise initialize FNR==1{x=$0 ... but with min/max you are in trouble
+
+
+EXERCISE 3: count how many times the nouns "Amy", "Beth", "Jo", "Meg" are written inside LittleWomen.txt
+1. realpath LittleWomen.txt
+2. cd there
+3. grep -o 'Amy' LittleWomen.txt | wc -l
+grep -o '\(Amy\|Beth\|Jo\|Meg\)' LittleWomen.txt|wc -l
+
+#!/bin/bash
+
+cat LittleWomen.txt |
+	tr A-Z a-z | # all lowercase
+	tr -cs a-z '\n' | # one word per line
+	awk '{++x[$1]};
+		END{
+			split("amy|beth|jo",names,"|");
+			for (i in names)
+				printf "%4s": %4d\n", names[i], x[names[i]]
+			}'
+			
+
+
+
+grep -o 'word' filename | wc -l
+grep -c '\<\(tom\|joe\)\>' test.txt
+
+
+EXERCISE 4: remove empty lines
+## type of files
+man magic
+file LittleWomen.txt
+
+cat LittleWomen.txt |
+	tr -d '\r' |
+	sed '/^$/d'
+	
+
+cat LittleWomen.txt |
+	sed -r '/^\r$/d' # remove lines where first bytes are carriage
+
+

@@ -1,0 +1,30 @@
+Comandi VMD
+
+APRIRE TRAIETTORIA traj_comp.xtc CON ASSOCIATA reference.pdb
+da terminale:
+vmd traj_comp.xtc reference.pdb
+
+VISTA ORTOGRAFICA ANZICHE' PROSPETTICA:
+display -> ortographic
+
+ATOMI, LEGAMI, ANGOLI E DIEDRI:
+mouse -> label
+graphics -> labels
+
+SELEZIONARE ATOMI (unico residuo nucleico):
+graphics -> representations -> Select Atoms: "nucleic resid 1" -> Create Rep
+
+NASCONDI SELEZIONE:
+doppio clic 
+
+COLORI:
+graphics -> representations -> draw style -> coloring method
+
+STILE LINEA:
+graphics -> representations -> draw style -> drawing method -> licorice
+
+TERMINALE DI VMD:
+extensions -> Tk console
+
+
+

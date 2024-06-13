@@ -1,0 +1,104 @@
+istruzioni slurm
+https://ulysses.readthedocs.io/how-to-use-ulysses.html
+https://docs.rc.fas.harvard.edu/kb/convenient-slurm-commands/
+
+python3 script.py ${1} ${2}
+
+parallel echo {1} {2} ::: 1 2 ::: 10 11
+
+parallel sbatch sendjob.sh {1} {2} ::: 0.01 0.1 1 10 100 1000 10000 ::: {1..10}
+
+squeue # per vedere tutti i job su ulysses
+squeue -u fslongo # per vedere quelli di fslongo
+squeue -u fslongo | wc -l # per contare quanti sono i job di fslongo
+squeue -u fslongo -t RUNNING # | wc -l
+squeue -u fslongo -t PENDING # | wc -l
+# per cancellare tutti i job che ho lanciato:
+squeue -u igilardo -h | awk '{print $1}' | xargs scancel
+
+source ../bashrc.BAD
+conda activate default
+
+sbatch sendjob.sh
+
+sbatch
+squeue
+scancel
+
+
+
+il nome dei file di output dovrà dipendere dalle variabili in input
+poi leggi tutti i file e li metti assieme
+
+du -h # per vedere la memoria occupata su disco
+rm no_uNOEs/ER/all_AAAA_kish_* # per eliminare (remove) i file che cominciano con all_AAAA_kish_ in folder no_uNOEs/ER
+cat no_uNOEs/ER/all_AAAA_kish* > no_uNOEs/ER/all_AAAA_kish # per unire i file
+awk 1 AAAA_test_contraj_* > AAAA_test_contraj # per unire i file andando a capo tra un file e l'altro
+pwd # dove sei?
+ls 
+
+scp -r igilardo@renoir.phys.sissa.it:/net/sbp/srnas2/tfrahlki/ForIvan/AAAA AAAA # per trasferire cartelle (-r)
+
+scp -r igilardo@frontend2.hpc.sissa.it:/home/igilardo/loss_function/results_no_uNOEs results_no_uNOEs
+
+scp igilardo@renoir.phys.sissa.it:/u/i/igilardo/2_tetramers alphabeta3_run.py
+
+sh script.sh # per lanciare uno script bash script.sh
+
+
+send:
+
+- simultaneously ER and FFF, no uNOEs, cross validation (--mem=10G)
+- simultaneously ER and FFF, uNOEs, whole data set (long: --mem=10G, nodes=4, time=48:00:00, partition=long1,long2) 
+
+## QUANTA MEMORIA (RAM) USARE: --mem è la memoria per singolo nodo
+per uNOEs con tutti e 5 i tetrameri (FFF, combined or not with ER): #SBATCH --mem=40G
+altrimenti usa #SBATCH --mem=10G 
+
+PER VEDERE UN SINGOLO NODO:
+ssh # + nome nodo, poi top (q o ctrl+c per uscire da top)
+ctrl + d # ESC FROM TERMINAL
+
+
+top
+pwd
+kill
+
+# SULLA WORKSTATION
+# far andare uno script in background
+nohup python3 my_script.py &
+
+# lasciare compilato lo script, per la volta successiva
+1. apri screen sulla WORKSTATION
+2. su screen, jupyter notebook --no-browser -part=9008
+3. dal mio pc: ssh -N -f -L localhost:9007
+4. local host : 9007
+
+taken come URL su VS code
+
+see: https://code.visualstudio.com/docs/datascience/jupyter-notebooks - Connect to a remote Jupyter server
+
+
+# VSCODE SHORTCUTS
+# comment (Ctrl /)
+Ctrl Shift 7
+# decomment
+Ctrl K + Ctrl U
+# find
+Ctrl F
+
+
+### 18/07/2023 PROBLEMA RISOLTO
+non riesco ad accedere ad ulysses da vs code: è dovuto ad un rallentamento del file system,
+perchè vs code per aprirsi su ulysses richiede (da bashrc) di lanciare conda, questo è diventato lento,
+probabilmente per il file system troppo carico; quindi, quando apro vs code su ulysses uso un bashrc che
+non contiene conda (bashrc_OK), più veloce; poi all interno di ogni job metto conda.
+
+Questa è la soluzione migliore: mettere conda in ogni job anzichè in bashrc, così puoi personalizzarlo
+a seconda di quello che ti serve nel job
+
+### stack exchange
+
+Effects of temperature on force fields:
+https://mattermodeling.stackexchange.com/questions/11390/effect-of-temperature-on-forcefield-parameters-in-classical-molecular-dynamics-s
+

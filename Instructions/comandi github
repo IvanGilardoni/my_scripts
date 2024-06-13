@@ -1,0 +1,31 @@
+GITHUB COMMANDS
+
+### SE HO ACCESSO IN SCRITTURA AL REPOSITORY:
+
+git clone https://github.com/IvanGilardoni/MDRefine.git  # see URL with Code
+
+git status
+
+git add filename
+
+git commit -m'my_message'
+
+git push  # per caricarlo online
+
+### SE NON HO ACCESSO IN SCRITTURA AL REPOSITORY:
+
+- se fai git clone del mio, allora quello risulta "origin" (tipo git fetch origin)
+
+- poi usi 
+
+git remote add myfork https://github.com/IvanGilardoni/MDRefine
+
+(myfork è un nome che scegli)
+
+- poi usi
+
+git push myfork master
+
+per caricare sul tuo fork le tue modifiche
+
+- poi da GitHub fai la pull request
