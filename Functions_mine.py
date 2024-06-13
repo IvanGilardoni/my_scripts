@@ -1,5 +1,5 @@
-# Personalized Python functions employed in basic staffs
-# 2024/06/04
+""" User-defined Python functions employed in basic staffs """
+
 
 import numpy as np
 
