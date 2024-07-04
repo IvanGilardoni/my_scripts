@@ -1,0 +1,16 @@
+connect colab to your drive, in order to save results (and conserve them!)
+
+# mount drive on colab
+# after executing this cell a link will appear, access with your google account
+from google.colab import drive
+drive.mount('/content/gdrive')
+# go to your drive
+%cd /content/gdrive/MyDrive
+# create working directory
+%mkdir cecam_school_2024
+# go to directory
+%cd cecam_school_2024
+# save a file to drive
+np.savetxt("test.txt", np.random.random((10,2)))
+# load file from drive
+print(np.loadtxt("test.txt"))
