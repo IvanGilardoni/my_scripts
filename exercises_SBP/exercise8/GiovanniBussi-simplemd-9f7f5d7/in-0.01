@@ -1,0 +1,8 @@
+inputfile crystalpoly.xyz
+outputfile output.xyz
+temperature 0.722
+tstep 0.005
+friction 0.01
+nstep 10000
+nconfig 1 trajectorypoly.xyz
+nstat 1 energiespoly.dat

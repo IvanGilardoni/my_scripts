@@ -1,0 +1,18 @@
+LESSON 3
+Literate program: you write sth for humans, in the middle you put code
+
+combine programs
+
+BASH SCRIPTING
+emacs hello.sh
+
+#!/bin/bash            ## to use bash
+printf "%s\n" "Hello, World!"
+
+bash hello.sh
+
+add a fold to a path: (environment variables)
+export PATH=$PWD:$PATH   ## pwd is my current directory
+echo $PATH
+
+check-args *
