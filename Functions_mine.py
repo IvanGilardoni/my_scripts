@@ -419,6 +419,45 @@ class my_plots():
         # plt.draw()
         # plt.show()
 
+    def plot_2d_dataframe(df):
+        from matplotlib.colors import LogNorm
+    
+        # if df.columns.name=='alpha': alphas = df.columns
+        # if df.index.name=='gamma': gammas = df.index
+        alphas = df.columns
+        gammas = df.index
+    
+        X,Y = np.meshgrid(alphas,gammas)
+    
+        #s='test_red.chi2'#_sameobs'
+        #s='train_red.chi2'
+        #a=np.array(data_ERFF['mean'][s])
+        plt.figure(figsize=(6,6))
+        plt.rcParams['font.size'] = 13
+        #plt.imshow(b,cmap='jet',interpolation='none')
+        # b_show = df.iloc[::-1]
+    
+        #np.array2string(np.array(b_show.columns))
+        # cols=['0.01','0.1','1','2','5','10','20','50','100','1e3','1e4','1e5','1e6','inf']
+        cols = ['{:.0e}'.format(alpha) for alpha in alphas]
+        rows = ['{:.0e}'.format(gamma) for gamma in gammas]
+        # rows=(['0']+cols)[::-1]
+        # rows
+    
+        plt.imshow(df, cmap='jet', interpolation='none', norm=LogNorm(vmin=np.nanmin(np.array(df)), vmax=np.nanmax(np.array(df)))) # b or np.log(b)
+        #plt.imshow(b_show,cmap='jet',interpolation='none')#,vmin=np.min(np.array(b_show)),vmax=np.max(np.array(b_show)))
+        #plt.imshow(np.log(np.array(b).T),cmap='jet',interpolation='none') # interpolation='lanczos'
+        plt.colorbar()
+        plt.xlabel(r'$\alpha$')
+        plt.xticks(range(len(alphas)),cols,rotation=90) # b_show.columns
+        plt.ylabel(r'$\gamma$')
+        plt.yticks(range(len(gammas)),rows)#b_show.index)
+        # plt.title(r'$\alpha,\zeta$ angles force field correction')
+        #plt.title(r'red. $\chi^2$, trainingest (new observables)')#new observables')
+        #plt.title(r'-$S_{rel}[P|P_0]$ training')
+        plt.show()
+
+
 ''' Preliminary tests for Python packages: 
 
     - name: Pyflakes
