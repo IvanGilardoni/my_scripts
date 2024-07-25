@@ -321,6 +321,35 @@ class my_plots():
     # it can be improved by including the possibility for different x for each my_dict[name1][name2]
     # in principle, you can add more legends
 
+    def plot_DataFrame(df):
+
+            barWidth = 1/(len(df.columns) + 1)
+
+            fig = plt.subplots(figsize=(12, 8)) 
+
+            brs = []
+            brs.append(np.arange(len(df.iloc[:, 0])))
+    
+            plt.bar(brs[-1], df.iloc[:, 0], label = df.columns[0], width = barWidth) # edgecolor ='grey', color ='tab:blue')
+
+            for i in range(1, len(df.columns)):
+                    brs.append([x + barWidth for x in brs[-1]])
+                    plt.bar(brs[-1], df.iloc[:, i], label=df.columns[i], width = barWidth) # edgecolor ='grey', color ='tab:blue')
+
+            plt.xticks([r + barWidth for r in range(len(df.iloc[:, 0]))], list(df.index))
+            # plt.xlabel(list(df.index))
+            
+            # plt.xlabel('Branch', fontweight ='bold', fontsize = 15) 
+            # plt.ylabel('Students passed', fontweight ='bold', fontsize = 15) 
+            # plt.xticks([r + barWidth for r in range(len(df['Aduri'].iloc[:-1]))], names_charges)
+
+            plt.legend()
+            plt.gca().xaxis.grid(True)
+            # plt.grid()
+            # plt.show()
+
+            return
+
     def plot_double_legend(x,my_dict,*,add_label2='',loc1=None,loc2=None):
         colors = my_plots.default_colors()
         markers = my_plots.default_markers()
