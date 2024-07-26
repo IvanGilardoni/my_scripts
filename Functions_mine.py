@@ -325,18 +325,19 @@ class my_plots():
 
             barWidth = 1/(len(df.columns) + 1)
 
-            fig = plt.subplots(figsize=(12, 8)) 
+            plt.subplots(figsize=(12, 8)) 
 
             brs = []
             brs.append(np.arange(len(df.iloc[:, 0])))
     
-            plt.bar(brs[-1], df.iloc[:, 0], label = df.columns[0], width = barWidth) # edgecolor ='grey', color ='tab:blue')
+            plt.bar(brs[-1], df.iloc[:, 0], label=df.columns[0], width=barWidth)  # edgecolor ='grey', color ='tab:blue')
 
             for i in range(1, len(df.columns)):
                     brs.append([x + barWidth for x in brs[-1]])
-                    plt.bar(brs[-1], df.iloc[:, i], label=df.columns[i], width = barWidth) # edgecolor ='grey', color ='tab:blue')
+                    plt.bar(brs[-1], df.iloc[:, i], label=df.columns[i], width=barWidth)  # edgecolor ='grey', color ='tab:blue')
 
-            plt.xticks([r + barWidth for r in range(len(df.iloc[:, 0]))], list(df.index))
+            plt.xticks([r + barWidth*(len(df.columns) - 1)/2 for r in range(len(df.iloc[:, 0]))], list(df.index))
+            # plt.xticks([r + barWidth for r in range(len(df.iloc[:, 0]))], list(df.index))
             # plt.xlabel(list(df.index))
             
             # plt.xlabel('Branch', fontweight ='bold', fontsize = 15) 
