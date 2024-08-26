@@ -208,6 +208,20 @@ class statistics():
 
         return eff_n_frames
 
+    def angles_from_sincos(sin, cos):
+
+        angles = np.arcsin(sin)
+        wh = np.argwhere(sin < 0)
+        angles[wh] = np.pi - angles[wh]
+
+        angles = np.mod(angles, 2*np.pi)
+
+        wh = np.argwhere((angles > np.pi) & (angles < 2*np.pi))
+        angles[wh] = angles[wh] - 2*np.pi
+
+        return angles
+
+
 #%% 4. class thermodynamics (including free energy difference)
 
 class thermodynamics():
