@@ -151,6 +151,33 @@ def make_title_of_dict_rec(my_var, name_list = []):
     return title
 
 
+def both_class_and_dict():
+    class AttrDict(dict):
+        def __init__(self, *args, **kwargs):
+            dict.__init__(self, *args, **kwargs)
+            # self.x = "Flintstones"
+            
+
+    a = AttrDict()  # {"fred": "male", "wilma": "female", "barney": "male"})
+
+    return a
+    
+    # example:
+    # a = AttrDict({"fred": "male", "wilma": "female", "barney": "male"})
+    # a.x = "Wilma"
+
+#%% compare two files (e.g., txt files or py source codes)
+
+def compare(file1_path, file2_path):
+    from difflib import Differ
+
+    with open(file1_path) as file_1, open(file2_path) as file_2:
+        differ = Differ()
+    
+        for line in differ.compare(file_1.readlines(), file_2.readlines()):
+            print(line)
+
+
 #%% 2. deconvolve_lambdas:
 
 # old version:
@@ -220,6 +247,84 @@ class statistics():
         angles[wh] = angles[wh] - 2*np.pi
 
         return angles
+
+#%% Metropolis algorithm
+
+def run_Metropolis(x0, proposal, energy_function, *, kT=1, n_steps=100):
+
+    """Metropolis algorithm with customizable proposal and energy_function. For example:
+    
+    ```
+    def proposal(x0, L, val1=0.3, val2=0.7):
+
+        moves = np.random.uniform(size=len(x0))
+            
+        x1 = x0
+        x1[moves < val1] -= 1
+        x1[moves > val2] += 1
+
+        x1 = np.mod(x1, L)  # periodic boundary conditions
+
+        return x1
+
+    proposal_full = {}
+    proposal_full['fun'] = proposal
+    proposal_full['args'] = (L, 0.3, 0.7)
+    ```
+
+    ```
+    def compute_energy(xs, ene0 = +2, ene1 = +1):
+        sorted_x0 = np.sort(x0)
+        vec = np.ediff1d(sorted_x0)
+        vec = np.append(vec, sorted_x0[0] + L - sorted_x0[-1])
+        energy = len(np.where(vec == 0)[0])*ene0 + len(np.where(vec == 1)[0])*ene1
+        return energy
+
+    energy_function_full = {'fun': compute_energy, 'args': (+2, +1)}
+    ```
+    """
+
+    traj = []
+    # time = []
+    ene = []
+    av_alpha = 0
+
+    traj.append(x0)
+    # time.append(0)
+    u0 = energy_function['fun'](x0)
+    ene.append(u0)
+    # print('u0: ', u0)
+
+    for i_step in range(n_steps):
+
+        x_try = proposal['fun'](x0, *proposal['args'])
+        u_try = +energy_function['fun'](x_try, *energy_function['args'])
+        # print('u_try: ', u_try)
+
+        alpha = np.exp(-(u_try-u0)/kT)
+
+        # print(alpha)
+        
+        if alpha > 1: alpha=1
+        if alpha > np.random.random():
+            av_alpha += 1
+            x0 = +x_try
+            u0 = +u_try
+        
+        # traj.append(x0)
+        
+        # to avoid overwriting!
+        traj.append([])
+        traj[-1] = +x0
+        
+        # time.append(i_step)
+        ene.append(u0)
+
+        # print(traj)
+
+    av_alpha = av_alpha/n_steps
+    
+    return np.array(traj), np.array(ene), av_alpha
 
 
 #%% 4. class thermodynamics (including free energy difference)
@@ -418,17 +523,17 @@ class my_plots():
         y = y[:-upto]
         z = z[:-upto]
 
-        ax = plt.figure(figsize=(10,8)).add_subplot(projection = '3d')
-        plt.title(r'gradient descent of $\min\,\chi^2(\alpha,\beta,\gamma)$', fontsize = 20)
+        ax = plt.figure(figsize=(10, 8)).add_subplot(projection='3d')
+        plt.title(r'gradient descent of $\min\,\chi^2(\alpha,\beta,\gamma)$', fontsize=20)
 
-        ax.set_xlabel(r'$\log\,\alpha$', fontsize = 20)
+        ax.set_xlabel(r'$\log\,\alpha$', fontsize=20)
         # ax.tick_params(labelleft = False, left = False)
         # ax.set_xticks("")#color = 'w')
-        ax.set_ylabel(r'$\log\,\beta$', fontsize = 20)
-        ax.set_zlabel(r'$\log\,\gamma$', fontsize = 20)
+        ax.set_ylabel(r'$\log\,\beta$', fontsize=20)
+        ax.set_zlabel(r'$\log\,\gamma$', fontsize=20)
         ax.plot(x, y, z, '.', label='parametric curve')
 
-        ax.plot(x[-1], y[-1], z[-1], 'Xk', markersize = 10)#, color = 'b')
+        ax.plot(x[-1], y[-1], z[-1], 'Xk', markersize=10)  # , color = 'b')
         # ax.legend()
 
         class Arrow3D(FancyArrowPatch):
@@ -444,7 +549,8 @@ class my_plots():
 
         for i in range(len(x)-1):
 
-            a = Arrow3D([x[i],x[i+1]],[y[i],y[i+1]],[z[i],z[i+1]], mutation_scale = 10, lw = 1, arrowstyle = '-|>', color = 'r')
+            a = Arrow3D([x[i], x[i+1]], [y[i], y[i+1]], [z[i], z[i+1]], mutation_scale=10, lw=3, 
+                arrowstyle='-|>', color='r')
             ax.add_artist(a)
 
 
@@ -501,23 +607,14 @@ class my_plots():
         #plt.title(r'-$S_{rel}[P|P_0]$ training')
         plt.show()
 
+    def save_pdf(path, name):
+        '''saving images as .pdf allows to avoid grainy images'''
+        
+        if not path[-1] == '/':
+            path = path + '/'
+        
+        plt.savefig(path + name + '.pdf', format='pdf', bbox_inches='tight')
 
-''' Preliminary tests for Python packages: 
 
-    - name: Pyflakes
-      run: |
-        pip install --upgrade pyflakes
-        pyflakes MDRefine
-    - name: Pylint
-      run: |
-        pip install --upgrade  pylint
-        pylint -E MDRefine
-    - name: Flake8
-      run: |
-        pip install --upgrade flake8
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 MDRefine bin --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics | tee flake8_report.txt
 
-'''
+

@@ -29,3 +29,7 @@ git push myfork master
 per caricare sul tuo fork le tue modifiche
 
 - poi da GitHub fai la pull request
+
+per rimuovere la cartella github scaricata
+
+yes | rm -r my_github_folder
