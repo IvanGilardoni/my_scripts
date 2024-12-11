@@ -248,6 +248,38 @@ class statistics():
 
         return angles
 
+    def block_analysis(x, size_blocks=None):
+    
+        size = len(x)
+        mean = np.mean(x)
+        std = np.std(x)/np.sqrt(size)
+
+        delta = 1
+        if size_blocks is None:
+            size_blocks = np.arange(1, np.int64(size/2) + delta, delta)
+
+        n_blocks = []
+        epsilon = []
+
+        for size_block in size_blocks:
+            n_block = int(size/size_block)
+            
+            # a = 0 
+            # for i in range(n_block):
+            #     a += (np.mean(x[(size_block*i):(size_block*(i+1))]))**2
+            # 
+            # epsilon.append(np.sqrt((a/n_blocks[-1] - mean**2)/n_blocks[-1]))
+
+            block_averages = []
+            for i in range(n_block):
+                block_averages.append(np.mean(x[(size_block*i):(size_block*(i+1))]))
+            block_averages = np.array(block_averages)
+
+            n_blocks.append(n_block)
+            epsilon.append(np.sqrt((np.mean(block_averages**2)-np.mean(block_averages)**2)/n_block))
+        
+        return mean, std, epsilon, n_blocks, size_blocks
+
 #%% Metropolis algorithm
 
 def run_Metropolis(x0, proposal, energy_function, *, kT=1, n_steps=100):
@@ -347,6 +379,10 @@ class thermodynamics():
 #%% 5. class my_plots
 # it includes:
 # - two_scale_plot (plot with 2 y scales)
+
+# see also:
+# https://github.com/cxli233/FriendsDontLetFriends/tree/main?tab=readme-ov-file#friends-dont-let-friends-use-boxpot-for-binomial-data
+
 
 import matplotlib.pyplot as plt
 
