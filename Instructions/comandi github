@@ -12,6 +12,8 @@ git commit -m'my_message'
 
 git push  # per caricarlo online
 
+git merge
+
 ### SE NON HO ACCESSO IN SCRITTURA AL REPOSITORY:
 
 - se fai git clone del mio, allora quello risulta "origin" (tipo git fetch origin)

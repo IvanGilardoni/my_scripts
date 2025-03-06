@@ -177,6 +177,26 @@ def compare(file1_path, file2_path):
         for line in differ.compare(file_1.readlines(), file_2.readlines()):
             print(line)
 
+#%% list files in directory (recursive)
+
+import os
+
+def list_files_recursive(path = '.', my_list = [], specific = None):
+
+    for entry in os.listdir(path):
+        full_path = os.path.join(path, entry)
+        if os.path.isdir(full_path):
+            list_files_recursive(full_path)
+        else:
+            my_list.append(full_path)
+
+    if specific is not None:
+        if type(specific) is str:  # example: specific = '.npy'
+            my_list = [l for l in my_list if l.endswith(specific)]
+        elif specific == 'dir':
+            my_list = [l for l in my_list if os.path.isdir(l)]
+
+    return my_list
 
 #%% 2. deconvolve_lambdas:
 

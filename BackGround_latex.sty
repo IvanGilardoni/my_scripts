@@ -1,0 +1,760 @@
+\NeedsTeXFormat{LaTeX2e}[23.11.2013]
+\ProvidesPackage{BackGround}
+
+
+%% Ivan packages
+\usepackage[T1]{fontenc}		 % codifica dei font in uscita
+\usepackage[utf8]{inputenc}		% lettere accentate da tastiera
+\usepackage[italian,english]{babel}	% lingua principale del documento
+\usepackage{graphicx}			% per le immagini
+\usepackage{amsthm}			% per theorem (plain, definition, remark)
+\usepackage{fancyhdr}
+\usepackage{bm}
+\usepackage{amsmath}
+\usepackage{booktabs}			% per le tabelle
+\usepackage{caption}
+\usepackage{subfig}
+\usepackage{float}
+%\usepackage{hyperref}
+\usepackage{url}				% per scrivere gli indirizzi Internet
+\usepackage{titlesec}			% per i titoli
+\usepackage{sectsty}
+
+%% Ivan commands
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+
+ \pagestyle{headings}
+\batchmode
+
+
+
+
+
+% 
+% 
+% 
+% 
+% 
+% \usepackage[utf8]{inputenc}
+\usepackage[hmargin=3cm,vmargin=4cm,dvips]{geometry}
+% \usepackage[T1]{fontenc}
+% \usepackage[italian,english]{babel}
+% \usepackage{afterpage}
+\usepackage{caption}
+% \usepackage[section,below]{placeins}
+% \usepackage{ae}
+% \usepackage{aecompl}
+% \usepackage{aeguill}
+% 
+% \usepackage{textcomp}
+% 
+% \usepackage[final]{graphicx}
+% \usepackage{fancyhdr}
+% 
+% 
+% \usepackage[dvipsnames,usenames]{xcolor}
+% \usepackage{enumerate}
+% \usepackage[hidelinks,hyperfigures]{hyperref}
+% \usepackage{multicol}%multicolonne%
+% 
+% 
+% 
+% 
+% \usepackage{mathpazo} 
+% \usepackage[scaled=.95]{helvet} 
+% \usepackage{courier}
+% 
+% 
+% \usepackage{amsmath}
+\usepackage{amssymb}
+% \usepackage{amsfonts}
+% \usepackage{bm}
+% \usepackage{xfrac}
+% \usepackage{empheq}
+% \usepackage{wasysym}
+% \usepackage{mathcomp}
+% \usepackage{float}
+% 
+% \usepackage{epstopdf}
+% \usepackage{subfig}
+% 
+% \usepackage{array}
+\usepackage{tabularx}
+ \usepackage{multirow}
+% \usepackage{booktabs}
+% 
+% \usepackage{appendix}
+% %\usepackage{parskip} %%l'invio ... ATTENZIONE!!! CAMBIA IL MODO DI ANDARE A CAPO!!!
+% %\usepackage{pst-all} %%disegnare
+% \usepackage{tikz} %disegnare
+% 
+% 
+% 
+%        %%Mettere le immagini%%
+% %%(vanno prima messe nella cartella immagini)
+% 
+% %\begin{figure}[!htbp]
+% %\begin{center}
+% %\includegraphics[width=12cm]{/potret.png}
+% %\caption{Fuuuuuh!}
+% %\end{center}
+% %\end{figure}
+% 
+% 
+%        %%Fare le tabelle%%
+% 
+% %\begin{tabular}{|l|l|}
+% %\hline
+% %\multirow{3}*{\minitab[c]{Testo\\ in due righe}} & Prima riga\\
+% %\cline{2-2}
+% %& Seconda riga\\
+% %\cline{2-2}
+% %& Terza riga\\
+% %\hline
+% %\end{tabular}
+% 
+% 
+% 
+% 
+% %Lettere accentate maiuscole%
+% %À
+% %È
+% %Ì
+% %Ò
+% %Ù
+% 
+% %definizione di ambienti numerati
+% \usepackage{amsthm}
+% 
+% %\newtheorem{exercise}{\textbf{Esercizio}}
+% %\newtheorem{definition}{\textbf{Definizione}}
+% %\newtheorem{example}{\textbf{Esempio}}
+% %\newtheorem{theorem}{\textbf{Teorema}}[section]
+% 
+% %\usepackage{pst-all} %%disegnare
+% 
+% %\usepackage{amstext} %% da gli spazi quando metto testo nelle equazioni
+% %\usepackage[mathlines,pagewise]{lineno} %% numerelli a righe ambiente linenumbers
+% 	\captionsetup{font={sf}}
+% 	\graphicspath{{immagini/}}
+% %\frenchspacing
+% 
+% 
+% %%Comandi di Disegno%%
+% 
+% %librerie
+% \usetikzlibrary{arrows,calc,shapes,decorations.pathreplacing}
+
+
+
+%scorciatoie
+\newcommand{\pc}[1]{
+	\draw[-stealth](0,-#1)--(0,#1);
+	\draw[-stealth](-#1,0)--(#1,0);}
+
+
+
+
+%%Comandi rapidi%%
+
+%virgolette
+\newcommand{\rabbit}[1]{``#1''}
+
+%Colori
+\newcommand{\Black}[1]{\textcolor{black}{#1}}
+\newcommand{\Red}[1]{\textcolor{red}{#1}}
+\newcommand{\Yellow}[1]{\textcolor{yellow}{#1}}
+\newcommand{\Blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\Green}[1]{\textcolor{green}{#1}}
+\newcommand{\Pink}[1]{\textcolor{pink}{#1}}
+\newcommand{\Cyan}[1]{\textcolor{cyan}{#1}}
+\newcommand{\Magenta}[1]{\textcolor{magenta}{#1}}
+
+\newcommand{\redbf}[1]{\textcolor{red}{\textbf{#1}}}
+\newcommand{\yellowbf}[1]{\textcolor{yellow}{\textbf{#1}}}
+\newcommand{\bluebf}[1]{\textcolor{blue}{\textbf{#1}}}
+\newcommand{\greenbf}[1]{\textcolor{green}{\textbf{#1}}}
+\newcommand{\pinkbf}[1]{\textcolor{pink}{\textbf{#1}}}
+\newcommand{\cyanbf}[1]{\textcolor{cyan}{\textbf{#1}}}
+\newcommand{\magentabf}[1]{\textcolor{magenta}{\textbf{#1}}}
+
+\newcommand{\citem}[1]{#1\item\black}%enumerate colorati inserire nell'argomento il colore =)
+
+%Comando per tabelle multirow
+\newcommand{\minitab}[2][l]{\begin{tabular}#1 #2\end{tabular}}
+
+%Sistemi
+\newcommand{\systd}[2]{\left\{
+\begin{aligned}
+&{#1}\\&{#2}
+\end{aligned}
+\right.}
+\newcommand{\systt}[3]{\left\{
+\begin{aligned}
+&{#1}\\&{#2}\\&{#3}
+\end{aligned}
+\right.}
+\newcommand{\systq}[4]{\left\{
+\begin{aligned}
+&{#1}\\&{#2}\\&{#3}\\&{#4}
+\end{aligned}
+\right.}
+
+%Colonne
+\newcommand{\cold}[2]{\begin{aligned}
+&{#1}\\&{#2}
+\end{aligned}}
+\newcommand{\colt}[3]{\begin{aligned}
+&{#1}\\&{#2}\\&{#3}
+\end{aligned}}
+\newcommand{\colq}[4]{\begin{aligned}
+&{#1}\\&{#2}\\&{#3}\\&{#4}
+\end{aligned}}
+
+%Colonne "infinite"
+\newcommand{\coln}[3]{\begin{aligned}
+&{#1}\\&{#2}\\&{\,\,\vdots}\\&{#3}
+\end{aligned}}
+\newcommand{\coli}[3]{\begin{aligned}
+&{#1}\\&{#2}\\&{\,\,\vdots}\\&{#3}\\&{\,\,\vdots}
+\end{aligned}}
+
+%Parentesi
+\newcommand{\ton}[1]{\left({#1}\right)}
+\newcommand{\quadr}[1]{\left[{#1}\right]}
+\newcommand{\graf}[1]{\left\lbrace{#1}\right\rbrace}
+\newcommand{\tontxt}[1]{$\ton{\text{#1}}$}
+\newcommand{\quadrtxt}[1]{$\quadr{\text{#1}}$}
+\newcommand{\graftxt}[1]{$\graf{\text{#1}}$}
+\newcommand{\alfton}[1]{$\left.\text{#1}\right)$}
+\newcommand{\braket}[2]{\langle #1 | #2\rangle}
+
+%Riferimento
+\newcommand{\tref}[1]{$\ton{\ref{#1}}$}
+%\renewcommand{\href}{\hyperref}
+\newcommand{\hrefbf}[2]{\hyperref[#1]{\textbf{#2}}}
+\newcommand{\hrefb}[2]{\hyperref[#1]{\blue{#2}}}
+\newcommand{\hrefbbf}[2]{\hyperref[#1]{\bluebf{#2}}}
+\newcommand{\hrefcbf}[2]{\hyperref[#1]{\cyanbf{#2}}}
+
+%Derivate
+\newcommand{\dd}[2]{\frac{\partial #2}{\partial #1}}
+\newcommand{\dds}[2]{\frac{\partial^2 #2}{\partial #1^2}}
+\newcommand{\ddsm}[3]{\frac{\partial^2 #3}{\partial #1\partial #2}}
+
+\newcommand{\de}[2]{\frac{\partial}{\partial #1}\ton{#2}}
+\newcommand{\des}[2]{\frac{\partial^2}{\partial {#1}^2}\ton{#2}}
+\newcommand{\desm}[3]{\frac{\partial^2 #3}{\partial #1\partial #2}}
+
+%Funzioni con le parentesi
+\newcommand{\expt}[1]{\exp\left\lbrace{#1}\right\rbrace}
+
+\newcommand{\lgt}[1]{\log\left({#1}\right)}
+\newcommand{\cost}[1]{\cos\left({#1}\right)}
+\newcommand{\sint}[1]{\sin\left({#1}\right)}
+\newcommand{\cosdt}[1]{\cos^2\left({#1}\right)}
+\newcommand{\sindt}[1]{\sin^2\left({#1}\right)}
+\newcommand{\costt}[1]{\cos^3\left({#1}\right)}
+\newcommand{\sintt}[1]{\sin^3\left({#1}\right)}
+\newcommand{\cosht}[1]{\cosh\left({#1}\right)}
+\newcommand{\sinht}[1]{\sinh\left({#1}\right)}
+\newcommand{\tant}[1]{\tan\left({#1}\right)}
+\newcommand{\tanht}[1]{\tanh\left({#1}\right)}
+\newcommand{\arcsint}[1]{\arcsin\left({#1}\right)}
+\newcommand{\arccost}[1]{\arccos\left({#1}\right)}
+\newcommand{\arctant}[1]{\arctan\left({#1}\right)}
+
+\newcommand{\abs}[1]{\left|{#1}\right|}
+\newcommand{\norm}[1]{\abs{\abs{#1}}}
+
+%Vettori Rapidi
+\newcommand{\E}{\vec{E}}
+\newcommand{\B}{\vec{B}}
+\newcommand{\A}{\vec{A}}
+\newcommand{\R}{\vec{R}}
+\newcommand{\J}{\vec{J}}
+\newcommand{\F}{\vec{F}}
+\newcommand{\x}{\vec{x}}
+\newcommand{\y}{\vec{y}}
+\newcommand{\xp}{\vec{x'}}
+\newcommand{\vr}{\vec{r}}
+\newcommand{\vu}{\vec{u}}
+\newcommand{\vv}{\vec{v}}
+\newcommand{\va}{\vec{a}}
+\newcommand{\vb}{\vec{b}}
+\newcommand{\vc}{\vec{c}}
+\newcommand{\vd}{\vec{d}}
+\newcommand{\vz}{\vec{z}}
+\newcommand{\vbeta}{\vec{\beta}}
+
+\newcommand{\bvec}[2]{\vec{\textbf{#1}}_{\textbf{#2}}} %vettore grassetto
+
+%Versori rapidi
+\newcommand{\vex}{\widehat{e}_x}
+\newcommand{\vey}{\widehat{e}_y}
+\newcommand{\vez}{\widehat{e}_z}
+\newcommand{\ver}{\widehat{e}_r}
+\newcommand{\vn}{\widehat{n}}
+
+%Ammasso di Versori, esplicita un vettore o un campo nella somma dei suoi versori 
+\newcommand{\vers}[1]{#1_x \vex + #1_y \vey + #1_z \vez } %es.E_x *e_x 
+\newcommand{\versd}[2]{\ton{#1_x\ton{#2}} \vex +\ton{#1_y\ton{#2}} \vey + \ton{#1_z\ton{#2}} \vez }%es.E(t)_x *e_x 
+%come prima ma senza o x o y o z
+\newcommand{\versdwx}[2]{\ton{#1_y\ton{#2}} \vey + \ton{#1_z\ton{#2}} \vez }
+\newcommand{\versdwy}[2]{\ton{#1_x\ton{#2}} \vex + \ton{#1_z\ton{#2}} \vez }
+\newcommand{\versdwz}[2]{\ton{#1_x\ton{#2}} \vex +\ton{#1_y\ton{#2}} \vey }
+
+%Operatori Differenziali
+\newcommand{\Grad}{\vec{\nabla}}
+\newcommand{\Lapl}{\nabla^2}
+\newcommand{\Div}{\Grad \cdot}
+\newcommand{\Rot}{\Grad \times}
+
+\newcommand{\tGrad}[1]{\Grad \ton{#1}}
+\newcommand{\tLapl}[1]{\Lapl\ton{#1}}
+\newcommand{\tDiv}[1]{\Grad \cdot \ton{#1}}
+\newcommand{\tRot}[1]{\Grad \times \ton{#1}}
+
+%Operatori Differenziali estesi
+\newcommand{\oDiv}[1]{\dd{x}{{#1}_x}+\dd{y}{{#1}_y}+\dd{z}{{#1}_z}}
+\newcommand{\oRot}[1]{\ton{\dd{y}{{#1}_z}-\dd{z}{{#1}_y}}\vex+\ton{\dd{z}{{#1}_x}-\dd{x}{{#1}_z}}\vey+\ton{\dd{x}{{#1}_y}-\dd{y}{{#1}_x}}\vez}
+
+\newcommand{\ODiv}[2]{\de{x}{{#1}_x\ton{#2}}+\de{y}{{#1}_y\ton{#2}}+\de{z}{{#1}_z\ton{#2}}}
+\newcommand{\ORot}[2]{\ton{\de{y}{#1_z\ton{#2}}-\de{z}{#1_y\ton{#2}}}\vex+\ton{\de{z}{#1_x\ton{#2}}-\de{x}{#1_z\ton{#2}}}\vey+\ton{\de{x}{#1_y\ton{#2}}-\de{y}{#1_x\ton{#2}}}\vez}
+
+\newcommand{\Laplsfdd}[1]{\frac{1}{r^2}\de{r}{r^2\dd{r}{#1}}+\frac{1}{r^2 \sint{\theta}}\de{\theta}{\sint{\theta}\dd{\theta}{#1}}+\frac{1}{r^2\sindt{\theta}}\dds{\phi}{#1}} %Laplaciano in coordinate sferiche
+
+\newcommand{\Laplsfde}[1]{\frac{1}{r^2}\de{r}{r^2\de{r}{#1}}+\frac{1}{r^2 \sint{\theta}}\de{\theta}{\sint{\theta}\de{\theta}{#1}}+\frac{1}{r^2\sindt{\theta}}\des{\phi}{#1}} %Laplaciano in coordinate sferiche
+
+
+%Integrali
+\newcommand{\val}[3]{\left.{#3}\right|\limits_{#1}^{#2}}%Valutato
+
+\newcommand{\ints}[3]{\ton{\int \vec{#1} \cdot {\vec{#2}}}d {#3}}
+\newcommand{\oints}[3]{\oint \ton{\vec{#1} \cdot {\vec{#2}}} d {#3}}
+\newcommand{\intv}[2]{\int \vec{#1} \cdot d{\vec{#2}}}
+\newcommand{\ointv}[2]{\oint \vec{#1} \cdot d{\vec{#2}}}
+
+%Equazioni utili
+\newcommand{\flux}[1]{\Phi \ton{#1}}%flusso
+\newcommand{\dist}[2]{\abs{\vec{#1} - \vec{#2}}}%distanza
+\newcommand{\Quad}[2]{\Lapl {#1} - \frac{1}{{#2}^2}\dds{t}{#1}}%d'Alambertiano
+\newcommand{\Diff}[2]{\Lapl {#1} - \frac{1}{#2}\dd{t}{#1}}%Eq di Diffusione
+\newcommand{\dirac}[1]{\delta \ton{ {#1} - {#1}_0}}
+\newcommand{\diracs}[2]{\delta \ton{ {#1} - \ton{#2}}}
+\newcommand{\mean}[1]{\left\langle{#1}\right\rangle}%media
+
+%Variabili elettrodinamiche%
+\newcommand{\tr}{t_{ret}} %tempo ritardato
+\newcommand{\trel}{\theta_{rel}} %angolo relativo
+\newcommand{\ez}{\varepsilon_0}
+\newcommand{\muz}{\mu_0}
+\newcommand{\er}{\varepsilon_r}
+\newcommand{\mur}{\mu_r}
+\newcommand{\opz}{z\pm v t}
+\newcommand{\optz}{\ton{\opz}}
+\newcommand{\opaz}{kz\pm \omega t}
+\newcommand{\opatz}{\ton{\opaz}}
+\newcommand{\opar}{kr\pm \omega t}
+\newcommand{\opatr}{\ton{\opaz}}
+\newcommand{\opafz}{kz\pm \omega t+\phi}
+\newcommand{\opaftz}{\ton{\opafz}}
+
+%Utility di scrittura dei teoremi%
+
+%Insieme
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\II}{\mathbb{I}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\bubble}{B_r\ton{x_0}}
+\newcommand{\Part}[1]{\mathcal{P}\ton{#1}}
+\newcommand{\metricaX}{\ton{X,d}}
+\newcommand{\copertura}{\graf{A_i}_{i\in I}}
+\newcommand{\sottocopertura}{\graf{A_{i_k}}_{k=1}^n}
+\newcommand{\compatto}[1]{\forall \copertura \tc A_i=\mathring{A_i} \wedge  \bigcup_{i\in I} A_i \supseteq #1  \exist \sottocopertura \tc \bigcup_{k=1}^n A_{i_k} \supseteq #1}
+
+
+%Parole
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Neps}{{N_{\eps}}}
+\newcommand{\Keps}{{K_{\eps}}}
+\newcommand{\tend}{\rightarrow}
+\newcommand{\then}{\Longrightarrow}
+\newcommand{\tc}{\,\mbox{  \textbf{:}  }\, }
+\newcommand{\virg}{\,\mbox{  \textbf{,}  } \,}
+\newcommand{\sse}{\Longleftrightarrow}
+\newcommand{\Ie}{I_\eps}
+\newcommand{\Ien}[1]{I_{\eps_{#1}}}
+\newcommand{\Ne}{N_\eps}
+\newcommand{\Nen}[1]{N_{\eps_{#1}}}
+\newcommand{\Se}{\, \textbf{  se  }\,}
+\newcommand{\from}{\mbox{  \textbf{:}  } }
+\newcommand{\exist}{\,\exists\,}
+\newcommand{\Sup}[1]{\text{Sup}\graf{#1}}
+\newcommand{\Inf}[1]{\text{Inf}\graf{#1}}
+\newcommand{\infl}[2]{\inf\limits_{#2}\graf{#1}}
+\newcommand{\supl}[2]{\sup\limits_{#2}\graf{#1}}
+\newcommand{\existu}{\exists ! \,}
+\newcommand{\op}[1]{\textit{o}\ton{#1}}
+\newcommand{\OG}[1]{\textit{O}\ton{#1}}
+\newcommand{\Max}[1]{\text{max}\graf{#1}}
+\newcommand{\Min}[1]{\text{min}\graf{#1}}
+\newcommand{\Deg}[1]{\deg\graf{#1}}
+\newcommand{\Card}[1]{\text{Card}\graf{#1}}
+\newcommand{\Diam}[1]{\text{diam}\graf{#1}}
+
+%Successioni
+\newcommand{\an}{\graf{a_n}}
+\newcommand{\bn}{\graf{b_n}}
+\newcommand{\cn}{\graf{c_n}}
+\newcommand{\dn}{\graf{d_n}}
+\newcommand{\xn}{\graf{x_n}}
+\newcommand{\yn}{\graf{y_n}} %oooOOOOoooolimpirladi
+\newcommand{\zn}{\graf{z_n}}
+
+\newcommand{\ak}{\graf{a_k}}
+\newcommand{\bk}{\graf{b_k}}
+\newcommand{\ck}{\graf{c_k}}
+\newcommand{\xk}{\graf{x_k}}
+\newcommand{\yk}{\graf{y_k}}
+\newcommand{\nk}{\graf{n_k}}
+
+\newcommand{\ank}{\graf{a_{n_k}}}
+\newcommand{\bnk}{\graf{b_{n_k}}}
+\newcommand{\cnk}{\graf{c_{n_k}}}
+\newcommand{\xnk}{\graf{x_{n_k}}}
+\newcommand{\ynk}{\graf{y_{n_k}}}
+
+\newcommand{\ankk}{a_{n_k}}
+\newcommand{\bnkk}{b_{n_k}}
+\newcommand{\cnkk}{c_{n_k}}
+\newcommand{\xnkk}{x_{n_k}}
+\newcommand{\ynkk}{y_{n_k}}
+
+\newcommand{\serie}{\sum\limits_{n=1}^{+\infty}}
+\newcommand{\seriez}{\sum\limits_{n=0}^{+\infty}}
+\newcommand{\Serie}[2]{\sum\limits_{n=#1}^{#2}}
+
+
+
+%Limiti
+\newcommand{\limz}[1]{\lim_{{#1}\rightarrow {#1}_{0}}\limits}
+\newcommand{\Lim}[2]{\lim_{{#1}\rightarrow {#2}}\limits}
+\newcommand{\Limn}{\lim_{{n}\rightarrow {+\infty}}\limits}
+\newcommand{\Limk}{\lim_{{k}\rightarrow {+\infty}}\limits}
+\newcommand{\Limxz}{\lim_{{x}\rightarrow {0}}\limits}
+\newcommand{\limxz}{\lim_{{x}\rightarrow {x_0}}\limits}
+\newcommand{\limxzs}{\lim_{{x}\rightarrow {x_{0-}}}\limits}
+\newcommand{\limxzd}{\lim_{{x}\rightarrow {x_{0+}}}\limits}
+\newcommand{\limxp}{\lim_{{x}\rightarrow {p}}\limits}
+\newcommand{\Limsup}[2]{\limsup\limits _{#1 \tend #2}}
+\newcommand{\Liminf}[2]{\liminf\limits _{#1 \tend #2}}
+\newcommand{\Limsupn}{\limsup\limits _{n \tend \infty}}
+\newcommand{\Liminfn}{\liminf\limits _{n \tend \infty}}
+\newcommand{\Limsupxp}{\limsup_{{x}\rightarrow {p}}\limits}
+\newcommand{\Liminfxp}{\liminf_{{x}\rightarrow {p}}\limits}
+%Frasi
+\newcommand{\Def}[2]{\mbox{     }\exists {#1}  	\tc \forall {#2} \mbox{  \textbf{:}  } }
+
+%CockTail
+\newcommand{\dose}[1]{\textbf{\large #1 \normalsize oz}}
+\newcommand{\doses}[3]{\textbf{\large #1-{#2}/{#3} \normalsize oz}}
+\newcommand{\half}{$\sfrac{\textbf{1}}{\textbf{2}}$   }
+
+\makeatletter
+\@addtoreset{chapter}{part}
+\makeatother  
+
+
+
+%%
+%%   This is file `mcode.sty'
+%%
+%%   It is supposed to help you easily include MATLAB source code
+%%   into LaTeX document,  but have it nicely highlighted, using
+%%   the great listings package.
+%%
+%%   PLEASE NOTE that this package does nothing but save you from
+%%   figuring out some configurations  in setting up the LISTINGS
+%%   package. ALL the work is done by that package!  Thus, please
+%%   refer your questions to the listings package documentation.
+%%
+%%   Usage: You have three ways of including your MATLAB code. As
+%%   environment,  as inline object and directly from an external
+%%   file.
+%%
+%%   1) Environment:
+%%
+%%          \begin{lstlisting}
+%%             YOUR CODE HERE
+%%          \end{lstlisting}
+%%
+%%
+%%   2) Inline object:
+%%
+%%          Bla bla \mcode{CODEFRAGMENT} bla bla.
+%%
+%%
+%%   3) Include external file (in environment form)
+%%
+%%          \lstinputlisting{YOUR-FILE.m}
+%%
+%%
+%%   For your convenience this package has the following options:
+%%
+%%   - bw  if you intend to print the document (highlighting done
+%%         via text formatting (bold, italic) and shades of gray)
+%%   
+%%   - numbered  if you want line numbers
+%%
+%%   - autolinebreaks  if you want  the package to  automatically
+%%          wrap your  code.  This is buggy as it  may well break
+%%          break syntax and it  doesn't work well with comments.
+%%          You REALLY should wrap your code manually.
+%%
+%%   - useliterate   if you want  some characters / relations  in
+%%          your code to be replace with something more readable.
+%%          Example: ~= becomes $\neq$, >= becomes $\geq$,  delta
+%%          becomes $\delta$ and so on.
+%%
+%%   - framed  if you want a frame  around the source code blocks
+%%
+%%   - final  if you have  ``gloablly'' set the draft option, the
+%%         listings package will  not output the code at all.  to
+%%         force it to  do so anyway,  load this package with the
+%%         final option (passes the ``final'' on to listings).
+%%
+%%   For example, you may use \usepackage[numbered,framed]{mcode}
+%%   in your document preamble.
+%%   
+%%   Note:  Inside code blocks you  can escape to LaTeX text mode
+%%   using §...§.  For ex. §text and some math: $x^2$§,  which is
+%%   especially  useful  in comments  for putting  nicely typeset
+%%   equations etc.  To get the same  colour/style as in the rest
+%%   of the comment use \mcommentfont, i.e. §\mcommentfont $x^2$§
+%%
+%%   To change the font used,  edit the first line in the "custo-
+%%   mise below" section.  And feel free to  edit other things as
+%%   well.  Refer to the documentation of the listings package to
+%%   see what  else you could do.  If an extra small font  is re-
+%%   quired,  use  {\fontfamily{pcr}\fontsize{3}{4.6}\selectfont}
+%%   in the definition of \lstbasicfont.
+%%
+%%   Author:
+%%      Florian Knorn | florian@knorn.org | www.florian-knorn.com
+%%
+%%   Version history:
+%%      2.3  --  More keywords (thanks Dominik Wild!)
+%%      2.2  --  Bugfix (thanks Willi Gerbig!)
+%%      2.1  --  Finally automatic detection between end and end
+%%      2.0  --  New options for line breaking and literate prog.
+%%      1.8  --  Fixed typo in documentation regarding §...§
+%%      1.7  --  Added MATLAB block comment syntax %{ ...... %}
+%%      1.6  --  Added some infos, dealing with keyword ``end''
+%%      1.5  --  Tweaked check to see wether textcomp is loaded
+%%      1.4  --  Fixed misconfig (mathescape now set to false)
+%%      1.3  --  Purely cosmetic (tabs replaced by spaces)
+%%      1.2  --  Added \lstset{showstringspaces=false}
+%%      1.1  --  Added \mcode command and [final] option
+%%      1.0  --  Release
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%              D O N ' T    T O U C H    T H I S                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\def\fileversion{2.3}
+%\def\filedate{2012/08/31}
+
+%\typeout{-- Package: `mcode' \fileversion\space %<\filedate> --}
+%\NeedsTeXFormat{LaTeX2e}
+%\ProvidesPackage{mcode}[\filedate\space\fileversion]
+
+% for bw-option
+\newif\ifbw
+\DeclareOption{bw}{\bwtrue}
+
+% numbered option
+\newif\ifnumbered
+\DeclareOption{numbered}{\numberedtrue}
+
+% final option
+\newif\iffinal
+\DeclareOption{final}{\finaltrue}
+
+% autolinebreaks option
+\newif\ifautolinebreaks
+\DeclareOption{autolinebreaks}{\autolinebreakstrue}
+
+% literate programming (replace certain characters/relations
+\newif\ifuseliterate
+\DeclareOption{useliterate}{\useliteratetrue}
+
+% framed option
+\newif\ifframed
+\DeclareOption{framed}{\framedtrue}
+
+\DeclareOption*{% default
+  \PackageWarning{mcode}{Unknown option `\CurrentOption' !}%
+}
+\ProcessOptions
+
+\ifbw\typeout{ - settings optimized for printing (bw formating)}
+\else\typeout{ - settings optimized for display (colour formating)}\fi
+\ifnumbered\typeout{ - line numbering enabled}\else\fi
+\ifuseliterate\typeout{ - literate programming (character replacements) enabled}\else\fi
+\ifautolinebreaks\typeout{ - automatic line breaking enabled (careful, buggy!)}\else\fi
+\ifframed\typeout{ - framed listings}\else\fi
+
+% This command allows you to typeset syntax highlighted Matlab
+% code ``inline''.  The font size \small seems to look best...
+\newcommand{\mcode}[1]{\lstinline[basicstyle=\lstbasicfont\small]|#1|}
+
+% check if color command exists
+\ifx\color\undefined%
+  \RequirePackage{xcolor}%
+\fi
+
+% check if listings has been loaded
+\ifx\lstset\undefined%
+  \iffinal
+    \RequirePackage[final]{listings}
+  \else
+    \RequirePackage{listings}
+  \fi
+\fi
+
+% Check if textcomp has been loaded (this package is needed for
+% upright quotes '' (instead of typographic ones `´)...
+\ifx\textquotesingle\undefined% 
+  \RequirePackage{textcomp}%
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                C U S T O M I S E   B E L O W                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ---------------------------------------------------------------------------------
+% default font
+\def\lstbasicfont{\fontfamily{pcr}\selectfont\footnotesize}
+
+% ---------------------------------------------------------------------------------
+% matlat languate definition
+\lstdefinelanguage{matlabfloz}{%
+  alsoletter={...},%
+  morekeywords={%                             % keywords
+  break,case,catch,continue,elseif,else,end,%
+    for,function,global,if,otherwise,persistent,%
+      return,switch,try,while,methods,properties,%
+        events,classdef,...},%
+  comment=[l]\%,                              % comments
+  morecomment=[l]...,                         % comments
+  morecomment=[s]{\%\{}{\%\}},                % block comments
+  morestring=[m]'                             % strings 
+}[keywords,comments,strings]%
+
+% ---------------------------------------------------------------------------------
+% general definitions
+\lstset{%
+  basicstyle={\lstbasicfont},                 % set font
+  showstringspaces=false,                     % do not emphasize spaces in strings
+  tabsize=4,                                  % number of spaces of a TAB
+  mathescape=false,escapechar=§,              % escape to latex with §...§
+  upquote=true,                               % upright quotes
+  aboveskip={1.5\baselineskip},               % a bit of space above listings
+  columns=fixed                               % nice spacing
+}
+
+% ---------------------------------------------------------------------------------
+% define colours and styles
+\ifbw % use font formating and gray 'colors'
+	\def\mcommentfont{\color[gray]{.75}\itshape} %comments light gray and italic
+  \lstset{language=matlabfloz,                % use our version of highlighting
+    keywordstyle=\bfseries,                   % keywords in bold
+    commentstyle=\mcommentfont,               % comments 
+    stringstyle=\color[gray]{0.5}             % strings darker gray
+  }
+\else% notbw => use colors : )
+	\def\mcommentfont{\color[rgb]{.133,.545,.133}} %comments in green
+  \lstset{language=matlabfloz,                % use our version of highlighting
+    keywordstyle=\color[rgb]{0,0,1},          % keywords in blue
+    commentstyle=\mcommentfont,               % comments
+    stringstyle=\color[rgb]{.627,.126,.941}   % strings in purple
+  } 
+\fi%bw
+
+% ---------------------------------------------------------------------------------
+% automatic line breaking --- warning, this is buggy and
+% doesn't break comments correctly!
+\ifautolinebreaks
+	\newsavebox{\lbreakdots}\sbox{\lbreakdots}{\lstbasicfont\mcommentfont...}
+	\lstset{breaklines=true,breakatwhitespace=true,prebreak=\usebox{\lbreakdots}}
+\fi
+
+% ---------------------------------------------------------------------------------
+% literate replacements
+% the following is for replacing some matlab relations like >= or ~=
+% by the corresponding LaTeX symbols, which are much easier to read ...
+\ifuseliterate
+	\lstset{%
+		literate=%
+			{~}{{$\neg$}}1 %               \neg
+			{<=}{{\tiny$\leq$}}1 %         \leq
+			{>=}{{\tiny$\geq$}}1 %         \geq
+			{~=}{{\tiny$\neq$}}1 %         \neq
+			{delta}{{\tiny$\Delta$}}1 %    \Delta
+			{(end)}{\lstbasicfont (end)}{5} % black ``end'' when indexing last vector element
+			{({ }end)}{\lstbasicfont ({ }end)}{6}
+			{(end{ })}{\lstbasicfont (end{ })}{6}
+			{({ }end{ })}{\lstbasicfont ({ }end{ })}{7}
+			{:end}{\lstbasicfont :end}{4}
+			{:{ }end}{\lstbasicfont :{ }end}{5}
+			{end:}{\lstbasicfont end:}{4}
+			{end{ }:}{\lstbasicfont end{ }:}{5}
+			{,end}{\lstbasicfont ,end}{4}
+			{,{ }end}{\lstbasicfont ,{ }end}{5}
+	}
+\else
+	\lstset{%
+		literate=%
+			{(end)}{\lstbasicfont (end)}{5} % black ``end'' when indexing last vector element
+			{({ }end)}{\lstbasicfont ({ }end)}{6}
+			{(end{ })}{\lstbasicfont (end{ })}{6}
+			{({ }end{ })}{\lstbasicfont ({ }end{ })}{7}
+			{:end}{\lstbasicfont :end}{4}
+			{:{ }end}{\lstbasicfont :{ }end}{5}
+			{end:}{\lstbasicfont end:}{4}
+			{end{ }:}{\lstbasicfont end{ }:}{5}
+			{,end}{\lstbasicfont ,end}{4}
+			{,{ }end}{\lstbasicfont ,{ }end}{5}
+	}
+\fi%literates
+
+% ---------------------------------------------------------------------------------
+% line numbering
+\ifnumbered% numbered option
+  \lstset{%
+    numbersep=3mm, numbers=left, numberstyle=\tiny, % number style
+  }
+\fi
+
+\ifframed%   framed option
+  \lstset{%
+    frame=single,                             % frame
+  }
+  \ifnumbered%
+    \lstset{%
+      framexleftmargin=6mm, xleftmargin=6mm   % tweak margins
+    }
+  \fi
+\fi
+
+\endinput
+%% End of file `mcode.sty'.
+
+
+\lstloadlanguages{MATLAB}

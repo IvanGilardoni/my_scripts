@@ -42,6 +42,8 @@ def demuxing(n_replicas,paths_traj,start_frame,userdoc,N=10000): # if_local
 
     start=time.time()
 
+    my_fun = lambda x1, x2 : len(np.where(np.abs(x1 - x2) < 0.1)[0])
+
     for n_subtraj in range(len(paths_traj)):
         
         xtc_read=[] # xtc_read[NR][n_frame][:]
@@ -63,7 +65,17 @@ def demuxing(n_replicas,paths_traj,start_frame,userdoc,N=10000): # if_local
                 x_new.append(xtc_read[NR][n_frame][:].flatten())
 
 
-            diff = distance.cdist(x,x_new,"sqeuclidean")
+            # diff = distance.cdist(x,x_new,"sqeuclidean")
+            diff = distance.cdist(x, x_new, my_fun)
+
+            # If there are PBCs, 'sqeuclidean' is not the correct thing to do:
+            # rather, you can compute the n. of particles moving less than a threshold
+            # and then do linear assignment based on that.
+            # In this way, giving the same weight to each displacement bigger than the threshold,
+            # you will manage to get rid of the particles close to the boundary (rho*L^3 vs. rho*L^2*delta).
+            # Notice that distance.cdist requires x, x_new to have shape (M x N) where M is the n. of replicas
+            # and N is the n. of total coordinates.
+
             #print('differences: ',diff/1e7)
 
             x=np.array(x_new)
