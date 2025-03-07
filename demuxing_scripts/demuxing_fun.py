@@ -1,6 +1,6 @@
-""" demuxing """
+""" demuxing function """
 
-import time, os
+import time, os, datetime
 import numpy as np
 import MDAnalysis as mda
 from scipy.spatial import distance
@@ -60,7 +60,7 @@ def demuxing(threshold, n_replicas, sorted_paths_traj, if_skip_first_frame, path
         print('in this case you must change argmax to argmin!')
         return
 
-    for n_subtraj in range(2):  # len(sorted_paths_traj)):
+    for n_subtraj in range(len(sorted_paths_traj)):
 
         print('subtrajectory n. ', n_subtraj)
         
@@ -111,43 +111,19 @@ def demuxing(threshold, n_replicas, sorted_paths_traj, if_skip_first_frame, path
                 print('n frames: ', n_frame)
 
     """ `repl_indices` is replica_index (its columns are themperatures) """
-    np.savetxt(path_print + '/replica_index', repl_indices, fmt='%i', delimiter=',')
-    np.savetxt(path_print + '/time', times, delimiter=',')
-    np.savetxt(path_print + '/n_subtraj', np.array([n_subtraj]), fmt='%d')
+
+    if not os.path.isdir(path_print): os.mkdir(path_print)
+
+    s = datetime.datetime.now()
+    date = s.strftime('%Y_%m_%d_%H_%M_%S')
+    
+    path_print = path_print + '/' + date + '_'
+    np.savetxt(path_print + 'replica_index', repl_indices, fmt='%i', delimiter=',')
+    np.savetxt(path_print + 'time', times, delimiter=',')
+    np.savetxt(path_print + 'n_subtraj', np.array([n_subtraj]), fmt='%d')
 
     print(n_subtraj)
 
     return np.array(repl_indices)
 
-#%% define path for subtrajectories
 
-sequence = 'CCCC'
-n_replicas = 24
-
-curr_dir = '/net/sbp/srnas2/tfrahlki/Simulations/%s_TREMD/Production/%s' % (sequence, sequence)
-
-paths_traj = [s for s in os.listdir(curr_dir) if s.startswith('traj_comp0')]  #  and s.endswith('0002.xtc'))]
-
-paths_traj.sort()
-
-# first element is traj_comp0.xtc
-paths_traj.insert(0, paths_traj[-1])
-paths_traj = paths_traj[:-1]
-
-# substitute replica number with %s
-for i in range(len(paths_traj)):
-    index = 9
-    replacement = '%s'
-
-    text_list = list(paths_traj[i])
-    text_list[index] = replacement
-
-    paths_traj[i] = ''.join(text_list)
-
-paths_traj = [(curr_dir + '/' + s) for s in paths_traj]
-
-#%% run demuxing
-
-path_print = '../../demuxing_results'
-
-my_rep_index = demuxing(1e-3, n_replicas, paths_traj, True, path_print, n_print=10)
