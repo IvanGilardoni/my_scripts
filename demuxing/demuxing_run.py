@@ -39,4 +39,4 @@ path_print = '../../demuxing_results_%s' % sequence
 # dim = np.array([51.0491, 51.0491, 51.049175, 59.999985, 59.999985, 90.])
 dim = mda.coordinates.XTC.XTCReader(paths_traj[0] % 0).ts.dimensions
 
-my_rep_index = demuxing(('periodical', dim), n_replicas, paths_traj, True, path_print, n_print=1000)
+my_rep_index = demuxing(('count', 1e-1), n_replicas, paths_traj, True, path_print, n_print=1000)

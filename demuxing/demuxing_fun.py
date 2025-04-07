@@ -201,6 +201,7 @@ def demuxing(distance_fun, n_replicas, sorted_paths_traj, if_skip_first_frame, p
             my_fun = lambda x1, x2 : cosine_distance(x1, x2, rec_vec)
 
         elif distance_fun[0] == 'periodical':
+            print('ensure the simulation is done with fixed volume (no isobaric ensemble)!')
             h = reciprocal_lattice(distance_fun[1], 'primitive vectors')
             h_inv = np.linalg.inv(h)
             my_fun = lambda x1, x2 : periodical_distance(x1, x2, h, h_inv)
@@ -265,4 +266,40 @@ def demuxing(distance_fun, n_replicas, sorted_paths_traj, if_skip_first_frame, p
 
     return np.array(repl_indices)
 
+#%% get trajectory
 
+def get_trajectory(paths_traj, n_replicas = 24, start_frame = 0, sup_trajs = None, sup_frames = -1):
+
+    trajs = []
+
+    if sup_trajs is None: sup_trajs = len(paths_traj)
+
+    for n_subtraj in range(sup_trajs):
+        
+        xtc_read = []  # xtc_read[NR][n_frame][:]
+        for n_rep in range(n_replicas):
+            xtc_read.append(mda.coordinates.XTC.XTCReader(paths_traj[n_subtraj] % n_rep))
+        
+        n_frame0 = start_frame
+        
+        if n_subtraj == 0:
+            x = []
+            for n_rep in range(n_replicas):
+                x.append(xtc_read[n_rep][start_frame][:].flatten())
+            
+            trajs.append(np.array(x))
+            n_frame0 = start_frame + 1  # if already initialised, start from next frame
+        
+        if sup_frames == -1: sup_frames = len(xtc_read[0])
+        
+        for n_frame in range(n_frame0, sup_frames):
+            x_new = []
+            for n_rep in range(n_replicas):
+                x_new.append(xtc_read[n_rep][n_frame][:].flatten())
+
+            trajs.append(np.array(x_new))
+
+            if (n_frame % 10) == 0:
+                print('n frames: ', n_frame)
+
+    return trajs
