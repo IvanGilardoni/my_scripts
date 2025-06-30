@@ -1,0 +1,17 @@
+open jupyter notebook on your workstation (with SSH):
+
+- open a terminal (local)
+
+ssh igilardo@renoir.phys.sissa.it
+jupyter notebook --no-browser --port=9999
+
+in this way you will access to the remote workstation;
+then, open a second terminal
+
+ssh -NfL localhost:9999:localhost:9999 igilardo@renoir.phys.sissa.it
+
+now, open your browser to
+
+http://127.0.0.1:9999/tree
+
+
