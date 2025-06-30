@@ -117,6 +117,33 @@ def make_title_from_dict(my_dict):
     return title
 
 
+def save_dict_to_txt(my_dict, txt_path, sep : str=','):
+    """
+    Save a dictionary as a txt file with column names given by indicization of dict keys.
+    Each item value should be 0- or 1-dimensional (either int, float, np.ndarray or list),
+    not 2-dimensional or more.
+    - `sep` is the separator, for example ',' or ' '
+    """
+
+    header = []
+    values = []
+
+    for key, arr in my_dict.items():
+        if (type(arr) is int) or (type(arr) is float):
+            header.append(key)
+            values.append(arr)
+        else:
+            assert ((type(arr) is np.ndarray) and (len(arr.shape) == 1)) or (type(arr) is list), 'error on element with key %s' % key
+            # you should also check that each element in the list is 1-dimensional
+            for i, val in enumerate(arr, 1):
+                header.append(f"{key}_{i}")
+                values.append(val)
+
+    with open(txt_path, 'w') as f:
+        f.write(sep.join(header) + '\n')
+        f.write(sep.join(str(v) for v in values) + '\n')
+
+
 # recursive: not working
 def make_title_of_dict_rec(my_var, name_list = []):
     
@@ -406,7 +433,7 @@ class thermodynamics():
 
 import matplotlib.pyplot as plt
 
-class my_plots():
+class my_plot_scripts():
 
     """ font size:
     
@@ -526,33 +553,36 @@ class my_plots():
 
             return
 
-    def plot_double_legend(x,my_dict,*,add_label2='',loc1=None,loc2=None):
-        colors = my_plots.default_colors()
-        markers = my_plots.default_markers()
-        for i in range(len(markers)): markers[i] = markers[i]+'--'
+    def plot_double_legend(x, my_dict, *, add_label2 = '', loc1 = None, loc2 = None):
+        colors = my_plot_scripts.default_colors()
+        markers = my_plot_scripts.default_markers()
+        for i in range(len(markers)): markers[i] = markers[i] + '--'
 
         plt.figure()
+
         plot_lines = []
         keys1 = list(my_dict.keys())
         keys2 = {}
-        for i,name1 in enumerate(keys1):
+
+        for i, name1 in enumerate(keys1):
             l = {}
             keys2[name1] = list(my_dict[name1].keys())
-            for j,name2 in enumerate(keys2[name1]):
-
+            for j, name2 in enumerate(keys2[name1]):
                 vec = my_dict[name1][name2]
-                l[name2], = plt.plot(x,vec,markers[j],color=colors[i])
+                l[name2], = plt.plot(x, vec, markers[j], color=colors[i])
                 
             plot_lines.append(unwrap_dict(l))
 
         if loc1 is not None: loc = loc1
         else: loc = 2
+
         legend1 = plt.legend(plot_lines[0], keys2[keys1[0]], loc=loc)
         plt.gca().add_artist(legend1)
 
         if loc2 is not None: loc = loc2
         else: loc = 3
-        labels = [add_label2+str(keys1[i]) for i in range(len(keys1))]
+
+        labels = [add_label2 + str(keys1[i]) for i in range(len(keys1))]
         plt.legend([l[0] for l in plot_lines], labels, loc=loc)
 
     def plot_3d_with_arrows():
@@ -671,6 +701,92 @@ class my_plots():
         
         plt.savefig(path + name + '.pdf', format='pdf', bbox_inches='tight')
 
+    
+    def plot_with_interrumpted_x_axis(ns, x, ys, labels, colors=None, lines=None, d : float=.015,
+        delta : float=0.2, figsize : tuple=(6, 4)):
+        """
+        Plot `y` vs. `x` values `for y in ys` with interrumption of x axis beyond `ns[0]` and `ns[1]`
+        and stop x axis at `ns[2]`.
+        The variable `ns` is either a list/array of float values (in this case the indices are got by
+        `np.argmin`) or integer values (in this case they are exactly the indices of `x`) corresponding to
+        breaking x axis.
+
+        Example:
+        ```
+        ns = [-100, -70, -25, 10, 30]
+        x = np.linspace(ns[0], ns[-1])
+        
+        m = 5
+        ys = [np.random.rand(len(x)) for i in range(m)]
+
+        labels = ['%i' % i for i in range(m)]
+        colors = my_plot_scripts.default_colors(m)
+        lines = ['.-']*m
+
+        fig, ax1, ax2 = plot_with_interrumpted_x_axis(ns[1:4], x, ys, labels, colors=colors, lines=lines)
+        plt.suptitle('(d) non-normalized posterior density', y=1.0)
+
+        handles, labels = ax1.get_legend_handles_labels()
+        fig.legend(handles, labels, loc='center left', bbox_to_anchor=(0.15, 0.5))
+
+        fig.savefig('my_break_image.pdf', format='pdf', bbox_inches='tight')
+        ```
+        """
+
+        # if single array/list of values to plot
+        try: len(ys[0])
+        except: ys = [ys]
+
+        for i in range(3):
+            if type(ns[i]) is int:
+                print('the first input variable is a list of x values, not of indices -- otherwise, just put it as a list of integers')
+            elif type(ns[i]) is float:
+                print('the first input variable is a list of indices, not of x values -- otherwise, just put it as a list of float')
+                ns[i] = np.argmin(np.abs(x - ns[i]))
+        
+        # specify color and line
+        assert (colors is None) or len(colors) == len(ys), 'error in length colors'
+        assert (lines is None) or len(lines) == len(ys), 'error in length lines'
+        if colors is None : colors = ['']*len(ys)
+        if lines is None : lines = ['']*len(ys)
+
+        fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=figsize, gridspec_kw={'wspace': 0.05,
+            'width_ratios': [1, 1]})  # , 'height_ratios': [1, 1]})
+
+        for i, y in enumerate(ys):
+            ax1.plot(x[:ns[0]], y[:ns[0]], color=colors[i], linestyle=lines[i], label=labels[i])
+            ax1.set_xlim([x[0], x[ns[0]]])
+
+            ax2.plot(x[ns[1]:ns[2]], y[ns[1]:ns[2]], color=colors[i], linestyle=lines[i])
+            ax2.set_xlim([x[ns[1]], x[ns[2]]])
+
+        ax1.spines['right'].set_visible(False)
+        ax2.spines['left'].set_visible(False)
+        ax2.tick_params(axis='y', left=False)
+
+        # add a diagonal break marker
+        delta = 1.
+        kwargs = dict(transform=ax1.transAxes, color='k', clip_on=False)
+        ax1.plot((delta - d, delta + d), (-d, +d), **kwargs)
+        ax1.plot((delta - d, delta + d), (delta - d, delta + d), **kwargs)
+        kwargs.update(transform=ax2.transAxes)
+        ax2.plot((-d, +d), (-d, +d), **kwargs)
+        ax2.plot((-d, +d), (delta - d, delta + d), **kwargs)
+
+        ax2.yaxis.set_tick_params(labelleft=False)
+
+        ax1.grid()
+        ax2.grid()
+
+        plt.tight_layout()
+
+        # plt.suptitle('(d) non-normalized posterior density')
+
+        # for the legend:
+        # handles, labels = ax1.get_legend_handles_labels()
+        # fig.legend(handles, labels, loc='upper center')
+        
+        return fig, ax1, ax2
 
 
 
