@@ -1,0 +1,58 @@
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp0.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp1.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp2.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp3.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp4.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp5.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp6.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp7.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp8.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp9.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp10.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp11.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp12.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp13.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp14.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp15.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp16.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp17.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp18.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp19.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp20.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp21.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp22.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+/u/i/igilardo/.local/lib/python3.6/site-packages/MDAnalysis/coordinates/XDR.py:232: UserWarning: Couldn't save offsets because: [Errno 13] Permission denied: '/net/sbp/srnas2/tfrahlki/Simulations/CCCC_TREMD/Production/CCCC/.traj_comp23.xtc_offsets.npz'
+  warnings.warn("Couldn't save offsets because: {}".format(e))
+subtrajectory n. 0.000000 / 270.000000
+Traceback (most recent call last):
+  File "demuxing_run.py", line 40, in <module>
+    my_rep_index = demuxing(('cos', ts), n_replicas, paths_traj, True, path_print, n_print=10000)
+  File "/u/i/igilardo/5_Jeffreys/my_scripts/demuxing/demuxing_fun.py", line 219, in demuxing
+    # if len(np.unique(ind)) != n_replicas:
+  File "<__array_function__ internals>", line 6, in savetxt
+  File "/u/i/igilardo/.local/lib/python3.6/site-packages/numpy/lib/npyio.py", line 1357, in savetxt
+    open(fname, 'wt').close()
+FileNotFoundError: [Errno 2] No such file or directory: '_../../demuxing_results_CCCC/replica_index_2025_03_13_09_43_15'
