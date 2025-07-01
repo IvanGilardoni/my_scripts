@@ -702,7 +702,7 @@ class my_plot_scripts():
         plt.savefig(path + name + '.pdf', format='pdf', bbox_inches='tight')
 
     
-    def plot_with_interrumpted_x_axis(ns, x, ys, labels, colors=None, lines=None, d : float=.015,
+    def plot_with_interrupted_x_axis(ns, x, ys, labels, colors=None, lines=None, d : float=.015,
         delta : float=0.2, figsize : tuple=(6, 4)):
         """
         Plot `y` vs. `x` values `for y in ys` with interrumption of x axis beyond `ns[0]` and `ns[1]`
