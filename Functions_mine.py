@@ -12,6 +12,22 @@ import numpy as np
 
 '''
 #%% 1. BASIC OPERATIONS WITH LIST, DICTIONARIES AND SO ON
+
+#%% from list of dicts to dict of lists
+def swap_list_dict(my_var):
+    """ either:
+    from dict of lists to list of dicts (provided all the lists have the same length) or
+    from list of dicts to dict_of_lists (provided that all the dicts have the same keys)
+    """
+    if type(my_var) is dict:
+        my_var = [dict(zip(my_var.keys(), values)) for values in zip(*my_var.values())]
+    elif type(my_var) is list:
+        my_var = {key: [d[key] for d in my_var] for key in my_var[0]}
+    else:
+        print('error')
+        my_var = None
+    return my_var
+
 #%% 1a. unwrap_dict: unwrap dictionaries (of dictionaries of...) made of lists
 # see also: my_dict.values()
 
