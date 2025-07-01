@@ -728,6 +728,7 @@ class my_plot_scripts():
 
         handles, labels = ax1.get_legend_handles_labels()
         fig.legend(handles, labels, loc='center left', bbox_to_anchor=(0.15, 0.5))
+        fig.text(0.5, 0.0, '$\lambda$', ha='center')
 
         fig.savefig('my_break_image.pdf', format='pdf', bbox_inches='tight')
         ```
