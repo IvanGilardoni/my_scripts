@@ -133,12 +133,11 @@ def make_title_from_dict(my_dict):
     return title
 
 
-def save_dict_to_txt(my_dict, txt_path, sep : str=','):
+def save_dict_to_txt(my_dict, txt_path, sep : str=' '):
     """
     Save a dictionary as a txt file with column names given by indicization of dict keys.
     Each item value should be 0- or 1-dimensional (either int, float, np.ndarray or list),
     not 2-dimensional or more.
-    - `sep` is the separator, for example ',' or ' '
     """
 
     header = []
@@ -149,7 +148,15 @@ def save_dict_to_txt(my_dict, txt_path, sep : str=','):
             header.append(key)
             values.append(arr)
         else:
-            assert ((type(arr) is np.ndarray) and (len(arr.shape) == 1)) or (type(arr) is list), 'error on element with key %s' % key
+            # assert ((type(arr) is np.ndarray) and (len(arr.shape) == 1)) or (type(arr) is list), 'error on element with key %s' % key
+            # you could also have jax arrays, so manage as follows:
+
+            try:
+                l = len(arr.shape)
+            except:
+                l = 0
+            assert (l == 1) or (type(arr) is list), 'error on element with key %s' % key
+            
             # you should also check that each element in the list is 1-dimensional
             for i, val in enumerate(arr, 1):
                 header.append(f"{key}_{i}")
@@ -158,6 +165,8 @@ def save_dict_to_txt(my_dict, txt_path, sep : str=','):
     with open(txt_path, 'w') as f:
         f.write(sep.join(header) + '\n')
         f.write(sep.join(str(v) for v in values) + '\n')
+
+    return
 
 
 # recursive: not working
