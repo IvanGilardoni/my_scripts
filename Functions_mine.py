@@ -2,6 +2,7 @@
 
 
 import numpy as np
+import pandas
 
 #%% 0. USEFUL READINGS
 '''
@@ -133,40 +134,61 @@ def make_title_from_dict(my_dict):
     return title
 
 
-def save_dict_to_txt(my_dict, txt_path, sep : str=' '):
+def swap_dict_to_txt(my_dict, txt_path, sep : str=' '):
     """
     Save a dictionary as a txt file with column names given by indicization of dict keys.
     Each item value should be 0- or 1-dimensional (either int, float, np.ndarray or list),
     not 2-dimensional or more.
+
+    If `my_dict` is None, do the opposite: from txt to dict.
     """
 
-    header = []
-    values = []
+    if my_dict is not None:
+        header = []
+        values = []
 
-    for key, arr in my_dict.items():
-        if (type(arr) is int) or (type(arr) is float):
-            header.append(key)
-            values.append(arr)
-        else:
-            # assert ((type(arr) is np.ndarray) and (len(arr.shape) == 1)) or (type(arr) is list), 'error on element with key %s' % key
-            # you could also have jax arrays, so manage as follows:
+        for key, arr in my_dict.items():
+            if (type(arr) is int) or (type(arr) is float):
+                header.append(key)
+                values.append(arr)
+            else:
+                # assert ((type(arr) is np.ndarray) and (len(arr.shape) == 1)) or (type(arr) is list), 'error on element with key %s' % key
+                # you could also have jax arrays, so manage as follows:
 
-            try:
-                l = len(arr.shape)
-            except:
-                l = 0
-            assert (l == 1) or (type(arr) is list), 'error on element with key %s' % key
-            
-            # you should also check that each element in the list is 1-dimensional
-            for i, val in enumerate(arr, 1):
-                header.append(f"{key}_{i}")
-                values.append(val)
+                try:
+                    l = len(arr.shape)
+                except:
+                    l = 0
+                assert (l == 1) or (type(arr) is list), 'error on element with key %s' % key
+                
+                # you should also check that each element in the list is 1-dimensional
+                for i, val in enumerate(arr, 1):
+                    header.append(f"{key}_{i}")
+                    values.append(val)
 
-    with open(txt_path, 'w') as f:
-        f.write(sep.join(header) + '\n')
-        f.write(sep.join(str(v) for v in values) + '\n')
+        with open(txt_path, 'w') as f:
+            f.write(sep.join(header) + '\n')
+            f.write(sep.join(str(v) for v in values) + '\n')
 
-    return
+        return
+    
+    else:
+        df = pandas.read_csv(txt_path, sep=sep)
+        output_dict = {}
+
+        # Extract all unique keys (prefix before last "_")
+        key_to_cols = {}
+        for col in df.columns:
+            if '_' in col:
+                key, idx = col.rsplit('_', 1)
+                key_to_cols.setdefault(key, []).append((int(idx), col))
+
+        # For each key, sort columns and flatten the values
+        for key, cols in key_to_cols.items():
+            sorted_cols = [col for _, col in sorted(cols)]
+            output_dict[key] = df[sorted_cols].values.flatten()
+
+        return output_dict
 
 
 # recursive: not working
