@@ -342,6 +342,64 @@ class statistics():
 
         return angles
 
+    def detect_convergence(time_series, threshold_fact = 50., which_method = 1, if_plot = False):
+        """
+        There are several ways to detect convergence of a time series (beyond visual inspection),
+        for example you can compute averages on time windows and then compare them.
+        Here, `threshold_fact` is not required.
+
+        Alternatively (`which_method = 2`), we can compute the variation of the cumulative averages
+        and check where it goes under a threshold. This variation is equal to:
+
+        $ \delta m(j) = m(j + 1) - m(j) = ... = 1/(j + 1) * (x_{j+1} - m(j))$
+
+        where $m(j)$ is the cumulative average up to frame n. $j$.
+        """
+
+        time_series = np.asarray(time_series)
+
+        if which_method == 1:
+            std = np.std(time_series[-5000:])
+            diffs = np.abs(time_series - time_series[-1])/std
+            wh = np.argwhere(diffs < 7)
+
+            b = ( len(wh)/len(diffs) > 0.99 )
+            # this is to avoid sporadic deviations above the threshold will affect the convergence detection
+
+            if b : position = 0
+            else : position = wh[np.where(np.ediff1d(wh) != 1)][-1]
+
+            if if_plot:
+                plt.figure()
+                plt.plot(diffs)
+                plt.plot([0, len(diffs)], 7*np.ones(2), 'k')
+
+            return position
+
+        elif which_method == 2:
+            cumulative_avg = np.cumsum(time_series) / np.arange(1, len(time_series) + 1)
+            diff = np.ediff1d(cumulative_avg)
+
+            my_max = np.max(diff)
+            threshold = my_max/threshold_fact
+
+            wh = np.argwhere(diff < threshold)
+            b = ( wh[-1] == len(diff) - 1 )[0]
+
+            if if_plot:
+                plt.figure()
+                plt.plot(diff)
+                plt.plot([0, len(diff)], threshold*np.ones(2))
+                plt.title('diff')
+
+            if b :
+                position = wh[np.where(np.ediff1d(wh) != 1)][-1]
+                print('convergence found at %s' % position)
+                return position
+            else:
+                print('convergence not detected')
+                return None 
+
     def block_analysis(x, size_blocks=None):
     
         size = len(x)
