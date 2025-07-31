@@ -1,0 +1,9 @@
+Bootstrap = ricampionamento con reimmissione
+
+Bootstrap on blocks:
+1. divido la serie temporale in N blocchi (non sovrapposti, la cui unione mi dà la serie temporale);
+2. estraggo con ripetizione N blocchi e li concateno in una "traiettoria fittizia";
+3. calcolo la quantità che mi interessa (f) sulla traiettoria fittizia;
+4. ripeto M volte gli step 2 e 3; calcolo media e varianza delle varie stime di f. 
+
+
