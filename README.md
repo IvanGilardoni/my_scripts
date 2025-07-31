@@ -4,7 +4,7 @@
 
 ---
 
-## 📁 Repository Structure
+## 📁 Repository structure
 
 ### `Core_tools/`
 
@@ -26,7 +26,7 @@ This is the core of the repository. It includes foundational Python modules grou
 
 ---
 
-## 📦 Additional Projects & Notebooks
+## 📦 Additional projects & notebooks
 
 The repository also includes various standalone or semi-standalone utilities:
 
@@ -38,7 +38,7 @@ The repository also includes various standalone or semi-standalone utilities:
 
 ---
 
-## 🧪 Requirements & Setup
+## 🧪 Requirements & setup
 
 Most tools rely on standard Python 3 libraries. You may need the following packages:
 
@@ -58,7 +58,7 @@ pip install -r requirements.txt
 
 ---
 
-🚀 Usage Examples
+## 🚀 Usage Examples
 Example scripts in `Core_tools_examples` demonstrate how to use the tools. For instance:
 
 ```
@@ -84,11 +84,11 @@ jupyter notebook kish_size.ipynb
 
 ---
 
-🤝 Contributing
+## 🤝 Contributing
 You're welcome to fork the repository, report issues, or submit pull requests. Whether it's bug fixes, new utility functions, or notebooks demonstrating use cases—contributions are appreciated!
 
 ---
 
-🔗 Related
+## 🔗 Related
 If you use tools like `scipy`, `numpy`, or `matplotlib`, you'll find these scripts easy to integrate into your workflow. The design philosophy of `my_scripts` is lightweight, practical, and extensible.
 
