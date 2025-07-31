@@ -1,0 +1,61 @@
+LESSON 4
+Exercise 5: 
+
+printf "Hello, %s!\n" "${*}"
+
+single quotes
+echo "$PATH"
+echo '$PATH' ## it prints $PATH, not the path
+echo $'$\PATH' ## it prints the path
+
+printf '%q\n' "$IFS" ## internal field separator
+
+variables
+var=value ## no spaces
+variables in bash are plain strings: var=3+4 prints "3+4"
+
+var=3+4
+echo $var
+
+or
+
+var=$((3+4)) ## to evaluate: 3+4=7
+
+path is an environment variables; from a subshell you cannot change the environment of the upper shell
+var= ./my_script.sh ## environment variable for my script
+how to modify/update environment variables? use source
+
+a register: smallest piece of information that a CPU can have
+define a function allows me to reduce the n. of registers used: combining two functions I will combine 2 registers
+
+Exercise 6:
+if it is smaller press 1, greater press 2, equal press 3
+select var_name in opt1 opt2 opt3 ...
+
+
+LECTURE 5
+correction of the exercises
+
+more CPUs: how to exploit them? In bash it is easy to parallelize
+for f in "${files[@]}"
+do
+	do_stat "$f" & ## the & is to work in parallel, the n. of files that you have
+done
+
+echo $$ ## the process ID of this shell
+exec is used to run the program on the same current ID
+redirect permanently standard inputs, outputs, errors... exec 1> ofile, exec 0< ifile, exec 2> efile
+
+LimitString
+
+how to submit a job on Ulysses
+Gutenberg project
+
+split by author: all the e-books of a certain author as a single job
+ 
+
+
+
+
+
+

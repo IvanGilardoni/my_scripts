@@ -1,0 +1,105 @@
+Max time step, energy fluctuations and energy drift for different values of temperature and number of particles (actually,the n. of particles is 4 N^3, crystal structure)
+criterio per max dt: esplode prima di t=100
+
+T=0.722
+N=1 dt=0.004-0.005
+dt=0.004 drift=(-1.9,163dt), (2.9, 1982dt), i.e. about 5/100
+dt=0.002 drift=(-1.6,194dt), (-0.52,5996dt), i.e. about 0.4/100
+dt=0.001 mean=-1.6, std=0.09
+
+N=2 dt=0.025-0.03
+dt=0.025 drift=(-150,0), (-145,400), i.e. about 5/400
+dt=0.01 drift=(-149.3,0), (-148.6,200), i.e. about 0.7/200
+dt=0.005 mean=-149.4, std=0.09
+
+N=3 dt=0.025-0.03
+dt=0.025 drift=(-556.5,0), (-555.5,1000), i.e. about 1/1000
+dt=0.01 drift=(-556.6,0), (-556.7,400), i.e. about -0.1/400 -- mean=-149.1, std=0.09
+dt=0.005 mean=-556.6, std=0.02
+
+N=4 dt=0.03-0.035
+dt=0.03 drift=(-1310,0), (-1290,100), i.e. about 20/100
+dt=0.025 drift=(-1308.5,0),(-1307,200) i.e. about 1.5/200
+dt=0.015 drift=(-1308.8,0),(-1308.3,140) i.e. about 0.5/140
+dt=0.01 drift=(-1308.7,0),(-1308.6,100) i.e. about 0.1/100 -- mean=-1308.7, std=0.06
+dt=0.005 mean=-1308.8, std=0.02
+
+N=5 dt=0.03-0.035
+dt=0.03 drift=(-2590,0),(-2540,300) i.e. about 50/300
+dt=0.015 drift=(-2595,0),(-2594.6,140) i.e. about 0.4/140
+dt=0.01 drift=(-2595,0),(-2594.6,100) i.e. about 0.4/100 -- mean=-2594.7, std=0.11
+dt=0.005 mean=-2595.0, std=0.02
+
+N=10 dt=0.03-0.035
+dt=0.03 drift=(-21010,0),(-20960,50) i.e. about 50/50
+dt=0.01 drift=(-21024,0),(-21023,100) i.e. about 1/100
+dt=0.003 mean=-21024.7, std=0.06
+
+----------------------------------------
+
+T=0.01
+N=1 dt=0.01-0.015
+dt=0.01 drift=(-5.4,0),(-5,400) i.e. about 0.4/400 -- mean=-4.9, std=0.44
+dt=0.005 drift=(-5.35,0),(-5.2,200) i.e. about 0.15/200 -- mean=-5.3, std=0.08
+dt=0.001 mean=-5.35, std=0.004
+
+N=2 dt=0.05-0.055
+dt=0.05 drift=(-187,0),(-179,200) i.e. about 8/200
+dt=0.01 mean=-187.0, std=0.068
+
+N=3 dt=0.12-0.13
+dt=0.12 drift=(-681.9,0),(-681.5,500) i.e. about 0.6/500
+dt=0.01 mean=-682.2, std=0.0001
+
+N=4 dt=0.12-0.13
+dt=0.12 drift=(-1616.4,0),(-1615.4,400) i.e. about 1/400
+dt=0.01 mean=-1616.9, std=0.0002
+
+N=5 dt=0.13-0.14
+dt=0.13 drift=(-3157,0),(-3154.5,100) i.e. about 2.5/100
+dt=0.05 mean=-3158.3, std=0.006
+
+N=10 dt=0.13-0.14
+dt=0.13 drift=(-25260,0),(-25245,100) i.e. about 15/100
+dt=0.05 mean=-25270, std=0.026
+
+---------------------------------------------------------
+
+T=0.1
+N=1 dt=0.01-0.015
+dt=0.01 drift=(-5,0),(-3.6,100) i.e. about 1.4/100 (exponential)
+dt=0.005 mean=-5.1, std=0.11
+
+N=2 dt=0.05-0.055
+dt=0.05 drift=(-182.5,0),(-178,100) i.e. about 4.5/100
+dt=0.01 mean=-182.2, std=0.06
+
+N=3 dt=0.07-0.08
+dt=0.07 drift=(-666,0),(-656,600) i.e. about 10/600 (exponential)
+dt=0.01 mean=-666.3, std=0.003
+
+N=4 dt=0.07-0.08
+dt=0.07 drift=(-1576,0),(-1572,250) i.e. about 6/250
+dt=0.01 mean=-1577.9, std=0.006
+
+N=10 dt=0.07-0.08
+dt=0.07 drift=(-24710,0),(-24670,300) i.e. about 40/300
+dt=0.01 mean=-24734, std=0.01
+
+------------------------------------------------------
+
+increasing the temperature T, at fixed n. of particles, the max time step allowed decreases (due to thermal noise) and the ratio std/mean increases;
+increasing the n. of particles at a certain T, the max time step allowed increases reaching a plateau;
+
+
+T=1
+N=1 dt=0.006-0.007
+N=2 dt=0.025-0.03
+N=3 dt=0.025-0.03
+N=10 dt=0.03
+
+T=10
+N=1 dt=0.002-0.0025
+N=2 dt=0.007-0.008
+N=3 dt=0.007-0.008
+N=5 dt=0.007-0.008

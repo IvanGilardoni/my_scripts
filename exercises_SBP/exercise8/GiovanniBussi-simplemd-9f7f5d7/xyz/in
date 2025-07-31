@@ -1,0 +1,10 @@
+inputfile xyz/crystal1.xyz
+outputfile xyz/output.xyz
+temperature 0.1
+tstep 0.01
+friction 0.0
+forcecutoff 2.5
+listcutoff  3.0
+nstep 8000
+nconfig 10 xyz/trajectory.xyz
+nstat   10 xyz/energies.dat

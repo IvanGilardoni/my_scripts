@@ -1,0 +1,7 @@
+LESSON 6
+ssh -> login nodes -> computing nodes
+sluvm
+I cannot access to a computing node without permission and it cannot access to internet
+
+login to Ulysses: df -h
+home2 and scrt2: you do all the computation on scratch
