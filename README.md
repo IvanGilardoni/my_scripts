@@ -58,7 +58,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🚀 Usage Examples
+## 🚀 Usage examples
 Example scripts in `Core_tools_examples` demonstrate how to use the tools. For instance:
 
 ```
