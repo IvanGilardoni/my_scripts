@@ -300,3 +300,40 @@ def deconvolve_lambdas(data_n_experiments,lambdas):
 
     return dict_lambdas
 
+class MyData_from_dataframe:
+    """
+    from a pandas dataframe to a dictionary of class instances, without further memory required;
+    in this way, you can add further properties to each class instance, beyond those in the pandas dataframe
+    
+    self.stride = row['stride'] → value is copied, no reference
+
+    self._df = df + property → reference kept, reflects changes
+
+    Defining new attributes as in the following lines will duplicate the data (twice memory will be required)
+    indeed if I modify for example a value through MyData instance, the corresponding value
+    in the original dataframe will not be modified
+    
+    for s in list(df.columns):
+        setattr(self, s, df[s].loc[label])
+    
+    so, refer to it as reference-only: to do this we can define it as a method
+    in addition, @property has specific advantages when you want an attribute-like interface with dynamic behavior:
+    both dynamic computation (as method), still access it like an attribute e.g. obj.stride rather than obj.stride()
+    the following lines correspond to what those containing make_getter do in each iteration
+    
+    @property
+    def stride(self):
+        return self.df.loc[self.label, 'stride']
+    """
+    def __init__(self, i, label, df):
+        self.i = i
+        self.label = label
+        self.df = df  # this is just a reference (to the full dataframe), so no further memory is required
+
+        for col in df.columns:  # also this is just a reference (see above)
+            def make_getter(col):
+                return property(lambda self: df.loc[self.label, col])
+            
+            setattr(self.__class__, col, make_getter(col))
+
+
