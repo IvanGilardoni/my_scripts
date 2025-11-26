@@ -337,3 +337,40 @@ class MyData_from_dataframe:
             setattr(self.__class__, col, make_getter(col))
 
 
+def compare_dicts(dict1, dict2):
+    """ WARNING: it works only when attribute values are "single variables" (integer, floats) or np.ndarray,
+    not more complicated data types """
+
+    diff1 = set(dict1.keys()) - set(dict2.keys())
+    diff2 = set(dict2.keys()) - set(dict1.keys())
+    common = set(dict1.keys()) - diff1
+
+    if diff1 == set(): diff1 = 'empty'
+    if diff2 == set(): diff2 = 'empty'
+
+    print('in dict1 but not in dict2: ', diff1)
+    print('in dict2 but not in dict1: ', diff2)
+    print('\ncommon attributes: ', list(common))
+
+    print('\n\ndifferent values of common attributes: ')
+
+    different_values = {}
+
+    b = 0
+
+    for k in list(common):
+        if isinstance(dict1[k], np.ndarray) and isinstance(dict2[k], np.ndarray):
+            if not np.array_equal(dict1[k], dict2[k]):
+                different_values[k] = (dict1[k], dict2[k])
+                print(k, different_values[k])
+                b = 1
+        else:
+            if dict1[k] != dict2[k]:
+                different_values[k] = (dict1[k], dict2[k])
+                print(k, different_values[k])
+                b = 1
+
+    if b == 0: print('all the common attributes have equal values')
+
+    return
+
